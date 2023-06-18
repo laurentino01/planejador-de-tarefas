@@ -1,8 +1,9 @@
 import { createId } from "../../functions/createId";
 
 import { db } from "../db/db";
-
-localStorage.setItem("db", JSON.stringify(db));
+if (!localStorage.db) {
+  localStorage.setItem("db", JSON.stringify(db));
+}
 
 const localDB = localStorage.getItem("db");
 
