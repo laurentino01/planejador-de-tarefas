@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import { ListaDeTarefas } from "./pages/ListaDeTarefas";
 import "./sass/header.scss";
-import { db } from "./services/db/db";
+
 import { NavLink } from "react-router-dom";
 
 function App() {
-  useEffect(() => {
-    if (localStorage.length === 0) {
-      localStorage.setItem("db", JSON.stringify(db));
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <main className="App ">
