@@ -1,0 +1,75 @@
+@use "variables" as *;
+
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: $dark;
+  background-color: #2d2d2dbe;
+  color: $dark;
+  z-index: 6;
+  transition: 0.3s;
+
+  .card {
+    position: fixed;
+    width: 90%;
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    gap: 15px;
+
+    svg {
+      cursor: pointer;
+      align-self: flex-end;
+      font-size: clamp(1.75rem, 1.5357rem + 1.0714vw, 2.5rem);
+    }
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      padding: clamp(0.75rem, 0.6071rem + 0.7143vw, 1.25rem);
+    }
+    h2 {
+      font-weight: 600;
+      font-size: clamp(1.5rem, 1.3571rem + 0.7143vw, 2rem);
+    }
+
+    p {
+      font-size: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
+      margin: 15px auto 45px auto;
+    }
+    .blue {
+      color: $blue;
+    }
+    .red {
+      color: red;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    form div {
+      max-width: 300px;
+      width: 100%;
+      margin: 5px auto;
+    }
+    form button {
+      font-family: "Raleway", "sans-serif";
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 18px;
+      height: 60px;
+      width: 200px;
+      margin: 5px 7.5px;
+    }
+  }
+}

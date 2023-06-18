@@ -1,0 +1,119 @@
+@use "variables" as *;
+
+.tasks-area {
+  background-color: $dark;
+  color: white;
+  font-family: $font-raleway;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 135px 20px 100px 20px;
+  h1 {
+    font-family: $font-poppins;
+    font-size: $font-34px;
+    margin-bottom: 100px;
+  }
+
+  table {
+    margin: 0 auto;
+    font-size: $font-25px;
+    border-collapse: collapse;
+    h6 {
+      cursor: pointer;
+      font-size: $font-25px;
+      font-weight: 400;
+    }
+    thead {
+      border-bottom: 3px solid white;
+    }
+    th {
+      padding-bottom: 40px;
+    }
+    tr {
+      height: 50px;
+    }
+
+    td {
+      width: 250px;
+    }
+  }
+
+  tbody {
+    ul {
+      display: flex;
+      justify-content: center;
+    }
+    li {
+      cursor: pointer;
+      list-style: none;
+      margin-left: 16px;
+    }
+
+    svg {
+      width: clamp(1rem, 0.8571rem + 0.7143vw, 1.5rem);
+    }
+
+    .checkContainer {
+      display: block;
+      position: relative;
+      border: 1px solid white;
+      border-radius: 2px;
+      width: 20px;
+      height: 20px;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .checkContainer input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 18px;
+      width: 18px;
+      top: 0;
+      left: 0;
+      z-index: 5;
+    }
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 18px;
+      width: 18px;
+      background-color: $dark;
+    }
+
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      transition: 0.5;
+      opacity: 0;
+    }
+
+    .checkContainer:hover input ~ .checkmark:after {
+      opacity: 1;
+    }
+    .checkContainer input:checked ~ .checkmark:after {
+      opacity: 1;
+    }
+
+    .checkContainer .checkmark:after {
+      left: 8px;
+      bottom: 5px;
+      width: 5px;
+      height: 15px;
+      border: solid white;
+      border-width: 0 4px 4px 0px;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
