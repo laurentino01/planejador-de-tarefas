@@ -2,10 +2,9 @@ import { createId } from "../../functions/createId";
 
 import { db } from "../db/db";
 
+localStorage.setItem("db", JSON.stringify(db));
+
 const localDB = localStorage.getItem("db");
-if (localDB === null) {
-  localStorage.setItem("db", JSON.stringify(db));
-}
 
 const parseLocalDB = () => {
   if (localDB) {
