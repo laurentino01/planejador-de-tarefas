@@ -1,9 +1,10 @@
 import { createId } from "../../functions/createId";
-import { DBError } from "../db/DBError";
+
+import { db } from "../db/db";
 
 const localDB = localStorage.getItem("db");
 if (localDB === null) {
-  throw new DBError("DESCULPE NÃO HÁ NADA NA LOCAL STORAGE");
+  localStorage.setItem("db", JSON.stringify(db));
 }
 
 const parseLocalDB = () => {
