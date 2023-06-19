@@ -1,6 +1,7 @@
 import { createId } from "../../functions/createId";
 
 import { db } from "../db/db";
+
 if (!localStorage.db) {
   localStorage.setItem("db", JSON.stringify(db));
 }
