@@ -20,6 +20,7 @@ Para isso, foi acrescentado as alterações abaixo
   6. Atualização da tabela.
   7. Aviso quando não houver tarefas.
   8. Melhora no visual dos formulários e validações.
+  9. Menssagens de feedback erro e sucesso.
 
 ## Tecnologias
 
