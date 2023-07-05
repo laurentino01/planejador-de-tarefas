@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
-import { ListaDeTarefas } from "./pages/ListaDeTarefas";
-import "./sass/header.scss";
+import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AppThemeProvider } from "./context/ThemeContext";
+
 import { HeaderNav } from "./layouts";
+import { AppRoutes } from "./routes/routing";
+import "./sass/header.scss";
 
 function App() {
-  useEffect(() => {}, []);
-
   return (
-    <main className="App ">
-      <HeaderNav />
-
-      <ListaDeTarefas />
-    </main>
+    <>
+      <AppThemeProvider>
+        <BrowserRouter>
+          <HeaderNav />
+          <AppRoutes />
+        </BrowserRouter>
+      </AppThemeProvider>
+    </>
   );
 }
 

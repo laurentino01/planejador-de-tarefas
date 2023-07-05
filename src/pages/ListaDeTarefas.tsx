@@ -59,7 +59,7 @@ export const ListaDeTarefas = () => {
   }, [targetTarefa]);
 
   return (
-    <section className="container tasks-area">
+    <main className="container tasks-area">
       {controlModal ? (
         <ModalOptions
           option={modalOption}
@@ -106,6 +106,6 @@ export const ListaDeTarefas = () => {
           </tr>
         </tbody>
       </table>
-    </section>
+    </main>
   );
 };

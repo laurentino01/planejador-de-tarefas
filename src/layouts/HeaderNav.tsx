@@ -4,11 +4,12 @@ import "../sass/header.scss";
 import Switch from "@mui/joy/Switch";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
-import { Grid, SxProps } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, SxProps } from "@mui/material";
 
 const darkModeSwitchStyleSX: SxProps = {
-  "--Switch-thumbSize": "20px",
+  "--Switch-thumbSize": "25px",
+  "--Switch-trackHeight": "30px",
+  "--Switch-trackWidth": "60px",
 };
 
 export const HeaderNav = () => {
@@ -20,27 +21,32 @@ export const HeaderNav = () => {
 
   return (
     <header className="container header ">
-      <h6>Organização</h6>
+      <div>
+        <h6>Organização</h6>
 
-      <nav>
-        <NavLink to={"/"}>Tarefas</NavLink>
-      </nav>
+        <nav>
+          <NavLink to={"/"}>Tarefas</NavLink>
+        </nav>
+      </div>
 
-      <Switch
-        checked={check}
-        onChange={handleCheck}
-        sx={darkModeSwitchStyleSX}
-        slotProps={{
-          thumb: {
-            input: { "aria-label": "dark mode" },
-            children: check ? (
-              <Brightness7Icon fontSize="small" color="primary" />
-            ) : (
-              <Brightness2Icon fontSize="small" />
-            ),
-          },
-        }}
-      />
+      <div>
+        {/* <Switch
+          variant="plain"
+          checked={check}
+          onChange={handleCheck}
+          sx={darkModeSwitchStyleSX}
+          slotProps={{
+            thumb: {
+              input: { "aria-label": "dark mode" },
+              children: check ? (
+                <Brightness7Icon fontSize="small" color="primary" />
+              ) : (
+                <Brightness2Icon fontSize="small" />
+              ),
+            },
+          }}
+        /> */}
+      </div>
     </header>
   );
 };

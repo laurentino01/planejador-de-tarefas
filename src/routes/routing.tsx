@@ -1,10 +1,12 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
-import App from "../App";
+import { ListaDeTarefas } from "../pages";
 
-export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-]);
+export const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<ListaDeTarefas />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
+};

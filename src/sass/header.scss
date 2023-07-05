@@ -3,11 +3,16 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: $blue;
   font-family: $font-poppins;
   color: white;
   font-size: $font-25px;
   padding: 30px 0 4px clamp(1.25rem, 0.5357rem + 3.5714vw, 3.75rem);
+
+  :first-child {
+    display: flex;
+  }
 
   h6 {
     margin-right: clamp(1.25rem, 0.8929rem + 1.7857vw, 2.5rem);
