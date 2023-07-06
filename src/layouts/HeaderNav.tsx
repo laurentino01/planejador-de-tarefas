@@ -28,11 +28,11 @@ export const HeaderNav = () => {
 
   const darkModeSwitchStyleSX: SxProps = {
     "& .MuiSwitch-track": {
-      backgroundColor: themeName === "light" ? "black" : "white",
+      backgroundColor: themeName === "light" ? "white" : "black",
     },
     "& .MuiSwitch-thumb": {
       backgroundColor:
-        themeName === "light" ? `${theme.palette.secondary.main}` : "black",
+        themeName === "light" ? "black" : `${theme.palette.secondary.main}`,
     },
     "--Switch-thumbSize": "25px",
     "--Switch-trackHeight": "30px",
@@ -45,7 +45,7 @@ export const HeaderNav = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "20px 40px 0px 20px",
+          padding: "20px 40px 10px 20px",
           maxWidth: "1440px",
           marginX: "auto",
           backgroundColor: `${theme.palette.primary.main}`,
@@ -73,14 +73,16 @@ export const HeaderNav = () => {
                 border: "none",
                 color: `${theme.palette.primary.main}`,
                 backgroundColor: "white",
-                padding: "7px 20px 10px 20px",
+                padding: "7px 20px 15px 20px",
                 borderRadius: "5px 5px 0 0",
                 cursor: "pointer",
                 transition: "0.3s",
               },
             }}
           >
-            <NavLink to={"/"}>Tarefas</NavLink>
+            <Typography sx={{ fontWeight: "600" }}>
+              <NavLink to={"/"}>Tarefas</NavLink>
+            </Typography>
           </Box>
         </Box>
 
@@ -89,6 +91,10 @@ export const HeaderNav = () => {
             sx={{
               marginRight: "20px",
               backgroundColor: `${theme.palette.secondary.main}`,
+              transition: "0.3s",
+              ":hover": {
+                backgroundColor: `${theme.palette.secondary.dark}`,
+              },
             }}
           >
             Adicionar Nova Tarefa
