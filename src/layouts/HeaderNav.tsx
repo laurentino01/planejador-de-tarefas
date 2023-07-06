@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../sass/header.scss";
 import Switch from "@mui/joy/Switch";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import { Button, SxProps } from "@mui/material";
+import { useAppThemeContext } from "../context/ThemeContext";
 
 const darkModeSwitchStyleSX: SxProps = {
   "--Switch-thumbSize": "25px",
@@ -15,9 +16,16 @@ const darkModeSwitchStyleSX: SxProps = {
 export const HeaderNav = () => {
   const [check, setCheck] = useState(false);
 
-  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCheck(e.target.checked);
-  };
+  const { toggleTheme } = useAppThemeContext();
+
+  const handleDarkMode = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCheck(e.target.checked);
+
+      toggleTheme();
+    },
+    []
+  );
 
   return (
     <header className="container header ">
@@ -30,10 +38,10 @@ export const HeaderNav = () => {
       </div>
 
       <div>
-        {/* <Switch
-          variant="plain"
+        <Switch
+          variant="solid"
           checked={check}
-          onChange={handleCheck}
+          onChange={handleDarkMode}
           sx={darkModeSwitchStyleSX}
           slotProps={{
             thumb: {
@@ -45,7 +53,7 @@ export const HeaderNav = () => {
               ),
             },
           }}
-        /> */}
+        />
       </div>
     </header>
   );

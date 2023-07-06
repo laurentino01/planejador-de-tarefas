@@ -8,7 +8,7 @@ import React, {
 import { LightTheme } from "../themes/lightTheme";
 import { DarkTheme } from "../themes/DarkTheme";
 import { ThemeProvider } from "@emotion/react";
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 
 interface IThemeContextProps {
   themeName: "light" | "dark";
@@ -16,18 +16,16 @@ interface IThemeContextProps {
 }
 
 interface IAppThemeProviderProps {
-  children: React.ReactNode;
+  children: JSX.Element | React.ReactNode;
 }
 const themeContext = createContext({} as IThemeContextProps);
 
-export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
-  children,
-}) => {
+export const AppThemeProvider = ({ children }: IAppThemeProviderProps) => {
   const [themeName, setThemeName] = useState<"light" | "dark">("light");
 
   const toggleTheme = useCallback(() => {
     setThemeName((oldTheme) => (oldTheme === "light" ? "dark" : "light"));
-  }, [themeName]);
+  }, []);
 
   const theme = useMemo(() => {
     if (themeName === "light") return LightTheme;
@@ -39,7 +37,7 @@ export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
       <ThemeProvider theme={theme}>
         <Box
           width={"100vw"}
-          height={"100vh"}
+          height={"auto"}
           bgcolor={theme.palette.background.default}
         >
           {children}

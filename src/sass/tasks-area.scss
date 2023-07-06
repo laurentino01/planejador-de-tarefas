@@ -1,8 +1,6 @@
 @use "variables" as *;
 
 .tasks-area {
-  background-color: $dark;
-  color: white;
   font-family: $font-raleway;
   display: flex;
   flex-direction: column;
@@ -112,7 +110,7 @@
     button {
       background: none;
       border: none;
-      color: white;
+
       cursor: pointer;
     }
   }

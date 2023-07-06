@@ -4,6 +4,7 @@ import { Tarefa, ModalOptions } from "../components";
 import { Add } from "@mui/icons-material";
 import { ITarefa } from "../interfaces/ITarefa";
 import "../sass/tasks-area.scss";
+import { Typography } from "@mui/material";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<Array<any>>([]);
@@ -69,7 +70,9 @@ export const ListaDeTarefas = () => {
         />
       ) : null}
 
-      <h1>Otimize seu tempo e se organize com o nosso Planejador Diário.</h1>
+      <Typography variant="h1" component={"h1"}>
+        Otimize seu tempo e se organize com o nosso Planejador Diário.
+      </Typography>
       <table>
         <thead>
           <tr>
