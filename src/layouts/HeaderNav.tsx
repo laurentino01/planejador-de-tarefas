@@ -1,25 +1,19 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 /* import "../sass/header.scss"; */
-import { CssVarsProvider } from "@mui/joy";
+import { CssVarsProvider, Button } from "@mui/joy";
 import Switch from "@mui/joy/Switch";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 
 import { Box, SxProps, Typography, useTheme } from "@mui/material";
-import Button from "@mui/joy/Button";
-import { useAppThemeContext } from "../context/ThemeContext";
 
-const darkModeSwitchStyleSX: SxProps = {
-  "--Switch-thumbSize": "25px",
-  "--Switch-trackHeight": "30px",
-  "--Switch-trackWidth": "60px",
-};
+import { useAppThemeContext } from "../context/ThemeContext";
 
 export const HeaderNav = () => {
   const [check, setCheck] = useState(false);
 
-  const { toggleTheme } = useAppThemeContext();
+  const { toggleTheme, themeName } = useAppThemeContext();
 
   const theme = useTheme();
 
@@ -32,10 +26,18 @@ export const HeaderNav = () => {
     []
   );
 
-  useEffect(() => {
-    console.log(theme);
-  }, [theme]);
-
+  const darkModeSwitchStyleSX: SxProps = {
+    "& .MuiSwitch-track": {
+      backgroundColor: themeName === "light" ? "black" : "white",
+    },
+    "& .MuiSwitch-thumb": {
+      backgroundColor:
+        themeName === "light" ? `${theme.palette.secondary.main}` : "black",
+    },
+    "--Switch-thumbSize": "25px",
+    "--Switch-trackHeight": "30px",
+    "--Switch-trackWidth": "60px",
+  };
   return (
     <CssVarsProvider>
       <Box
@@ -82,7 +84,15 @@ export const HeaderNav = () => {
           </Box>
         </Box>
 
-        <Box>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Button
+            sx={{
+              marginRight: "20px",
+              backgroundColor: `${theme.palette.secondary.main}`,
+            }}
+          >
+            Adicionar Nova Tarefa
+          </Button>
           <Switch
             variant="solid"
             checked={check}
@@ -92,9 +102,12 @@ export const HeaderNav = () => {
               thumb: {
                 input: { "aria-label": "dark mode" },
                 children: check ? (
-                  <Brightness7Icon fontSize="small" color="primary" />
+                  <Brightness7Icon
+                    fontSize="small"
+                    sx={{ color: `${theme.palette.secondary.main}` }}
+                  />
                 ) : (
-                  <Brightness2Icon fontSize="small" />
+                  <Brightness2Icon fontSize="small" sx={{ color: "white" }} />
                 ),
               },
             }}
