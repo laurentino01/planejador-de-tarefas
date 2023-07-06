@@ -3,8 +3,19 @@ import { TarefasServices } from "../services/tarefasServices/TarefasServices";
 import { Tarefa, ModalOptions } from "../components";
 import { Add } from "@mui/icons-material";
 import { ITarefa } from "../interfaces/ITarefa";
-import "../sass/tasks-area.scss";
-import { Typography } from "@mui/material";
+/* import "../sass/tasks-area.scss"; */
+import {
+  Box,
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<Array<any>>([]);
@@ -70,45 +81,58 @@ export const ListaDeTarefas = () => {
         />
       ) : null}
 
-      <Typography variant="h1" component={"h1"}>
+      <Typography
+        marginTop={10}
+        textAlign={"center"}
+        variant="h4"
+        component={"h1"}
+      >
         Otimize seu tempo e se organize com o nosso Planejador Diário.
       </Typography>
-      <table>
-        <thead>
-          <tr>
-            <th>Tarefa</th>
-            <th>Status</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
+      <TableContainer
+        component={Box}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        marginTop={10}
+      >
+        <Table sx={{ maxWidth: 900 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Tarefa</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Opções</TableCell>
+            </TableRow>
+          </TableHead>
 
-        <tbody>
-          {lista.map((tarefa) => (
-            <Tarefa
-              key={tarefa.id}
-              id={tarefa.id}
-              title={tarefa.title}
-              description={tarefa.description}
-              completed={tarefa.completed}
-              openModal={openModal}
-              setTargetTarefa={setTargetTarefa}
-            />
-          ))}
-          <tr>
-            <td>Nova tarefa... </td>
-            <td> </td>
-            <td>
-              <button
-                onClick={() =>
-                  openModal(0, "string", "string", false, "create")
-                }
-              >
-                <Add></Add>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+          <TableBody>
+            {lista.map((tarefa) => (
+              <Tarefa
+                key={tarefa.id}
+                id={tarefa.id}
+                title={tarefa.title}
+                description={tarefa.description}
+                completed={tarefa.completed}
+                openModal={openModal}
+                setTargetTarefa={setTargetTarefa}
+              />
+            ))}
+            <TableRow>
+              <TableCell>Nova tarefa... </TableCell>
+
+              <TableCell>
+                <Button
+                  onClick={() =>
+                    openModal(0, "string", "string", false, "create")
+                  }
+                >
+                  <Add></Add>
+                </Button>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
     </main>
   );
 };

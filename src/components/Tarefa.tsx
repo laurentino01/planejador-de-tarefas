@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { ITarefaProps } from "../interfaces/ITarefaProps";
 import { Edit, Delete, Visibility } from "@mui/icons-material";
+import {
+  List,
+  ListItem,
+  TableCell,
+  TableRow,
+  Typography,
+  Checkbox,
+  Box,
+} from "@mui/material";
 
 export const Tarefa = ({
   id,
@@ -22,15 +31,16 @@ export const Tarefa = ({
   }, []);
 
   return (
-    <tr>
-      <td>
-        <h6>{title}</h6>
-      </td>
-      <td>
+    <TableRow>
+      <TableCell>
+        <Typography component={"h6"} variant="h6">
+          {title}
+        </Typography>
+      </TableCell>
+      <TableCell>
         <div className="checkContainer">
-          <input
-            id="check"
-            type="checkbox"
+          <Checkbox
+            checked={status}
             onChange={(e) => {
               setTargetTarefa({
                 id: id,
@@ -40,28 +50,36 @@ export const Tarefa = ({
               });
               setStatus(e.target.checked);
             }}
-            checked={status}
           />
-          <span className="checkmark"></span>
         </div>
-      </td>
+      </TableCell>
 
-      <td>
-        <ul>
-          <li
+      <TableCell>
+        <List component={Box} display={"flex"}>
+          <ListItem
             onClick={() => openModal(id, title, description, status, "exclude")}
+            sx={{ cursor: "pointer" }}
+            component={"li"}
           >
             <Delete></Delete>
-          </li>
-          <li onClick={() => openModal(id, title, description, status, "edit")}>
+          </ListItem>
+          <ListItem
+            onClick={() => openModal(id, title, description, status, "edit")}
+            sx={{ cursor: "pointer" }}
+            component={"li"}
+          >
             <Edit></Edit>
-          </li>
+          </ListItem>
 
-          <li onClick={() => openModal(id, title, description, status, "view")}>
+          {/* <ListItem
+            onClick={() => openModal(id, title, description, status, "view")}
+            sx={{ cursor: "pointer" }}
+            component={"li"}
+          >
             <Visibility></Visibility>
-          </li>
-        </ul>
-      </td>
-    </tr>
+          </ListItem> */}
+        </List>
+      </TableCell>
+    </TableRow>
   );
 };
