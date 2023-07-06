@@ -43,7 +43,7 @@ export const HeaderNav = () => {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "20px",
+          padding: "20px 40px 0px 20px",
           maxWidth: "1440px",
           marginX: "auto",
           backgroundColor: `${theme.palette.primary.main}`,
@@ -60,6 +60,22 @@ export const HeaderNav = () => {
               background: "none",
               ":hover": { background: "none" },
               color: "white",
+              "& a": {
+                color: "white",
+                textDecoration: "none",
+                marginLeft: "20px",
+                marginBottom: 0,
+                fontSize: "22px",
+              },
+              "a.active": {
+                border: "none",
+                color: `${theme.palette.primary.main}`,
+                backgroundColor: "white",
+                padding: "7px 20px 10px 20px",
+                borderRadius: "5px 5px 0 0",
+                cursor: "pointer",
+                transition: "0.3s",
+              },
             }}
           >
             <NavLink to={"/"}>Tarefas</NavLink>
