@@ -15,6 +15,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useTheme,
 } from "@mui/material";
 
 export const ListaDeTarefas = () => {

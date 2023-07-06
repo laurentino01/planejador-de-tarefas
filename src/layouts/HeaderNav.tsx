@@ -1,11 +1,12 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 /* import "../sass/header.scss"; */
+import { CssVarsProvider } from "@mui/joy";
 import Switch from "@mui/joy/Switch";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
-import { useTheme } from "@mui/material";
-import { Box, SxProps, Typography } from "@mui/material";
+
+import { Box, SxProps, Typography, useTheme } from "@mui/material";
 import Button from "@mui/joy/Button";
 import { useAppThemeContext } from "../context/ThemeContext";
 
@@ -36,44 +37,54 @@ export const HeaderNav = () => {
   }, [theme]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "20px",
-        maxWidth: "1440px",
-        marginX: "auto",
-      }}
-    >
-      <Box component={"nav"} sx={{ display: "flex", alignItems: "center" }}>
-        <Typography component={"h6"} variant="h4">
-          Organização
-        </Typography>
+    <CssVarsProvider>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "20px",
+          maxWidth: "1440px",
+          marginX: "auto",
+          backgroundColor: `${theme.palette.primary.main}`,
+        }}
+      >
+        <Box component={"nav"} sx={{ display: "flex", alignItems: "center" }}>
+          <Typography component={"h6"} variant="h4" color={"white"}>
+            Organização
+          </Typography>
 
-        <Button sx={{ background: "none", ":hover": { background: "none" } }}>
-          <NavLink to={"/"}>Tarefas</NavLink>
-        </Button>
-      </Box>
+          <Box
+            component={"a"}
+            sx={{
+              background: "none",
+              ":hover": { background: "none" },
+              color: "white",
+            }}
+          >
+            <NavLink to={"/"}>Tarefas</NavLink>
+          </Box>
+        </Box>
 
-      <Box>
-        <Switch
-          variant="solid"
-          checked={check}
-          onChange={handleDarkMode}
-          sx={darkModeSwitchStyleSX}
-          slotProps={{
-            thumb: {
-              input: { "aria-label": "dark mode" },
-              children: check ? (
-                <Brightness7Icon fontSize="small" color="primary" />
-              ) : (
-                <Brightness2Icon fontSize="small" />
-              ),
-            },
-          }}
-        />
+        <Box>
+          <Switch
+            variant="solid"
+            checked={check}
+            onChange={handleDarkMode}
+            sx={darkModeSwitchStyleSX}
+            slotProps={{
+              thumb: {
+                input: { "aria-label": "dark mode" },
+                children: check ? (
+                  <Brightness7Icon fontSize="small" color="primary" />
+                ) : (
+                  <Brightness2Icon fontSize="small" />
+                ),
+              },
+            }}
+          />
+        </Box>
       </Box>
-    </Box>
+    </CssVarsProvider>
   );
 };

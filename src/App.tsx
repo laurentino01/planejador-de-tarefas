@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { AppThemeProvider } from "./context/ThemeContext";
-import { CssVarsProvider } from "@mui/joy";
 
 import { HeaderNav } from "./layouts";
 import { AppRoutes } from "./routes/routing";
@@ -12,9 +11,7 @@ function App() {
     <>
       <AppThemeProvider>
         <BrowserRouter>
-          <CssVarsProvider>
-            <HeaderNav />
-          </CssVarsProvider>
+          <HeaderNav />
           <AppRoutes />
         </BrowserRouter>
       </AppThemeProvider>
