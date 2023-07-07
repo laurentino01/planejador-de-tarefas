@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { LightTheme } from "../themes/lightTheme";
 import { DarkTheme } from "../themes/DarkTheme";
-import { ThemeProvider } from "@mui/material";
+import { ThemeProvider } from "@emotion/react";
 import Box from "@mui/material/Box";
 
 interface IThemeContextProps {

@@ -7,7 +7,6 @@ import { ITarefa } from "../interfaces/ITarefa";
 import {
   Box,
   Button,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -15,7 +14,6 @@ import {
   TableHead,
   TableRow,
   Typography,
-  useTheme,
 } from "@mui/material";
 
 export const ListaDeTarefas = () => {

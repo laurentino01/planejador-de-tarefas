@@ -1,21 +1,22 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 /* import "../sass/header.scss"; */
-import { CssVarsProvider, Button } from "@mui/joy";
-import Switch from "@mui/joy/Switch";
+
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import { Box } from "@mui/system";
 import {
-  Box,
   SxProps,
   Typography,
   useTheme,
   useMediaQuery,
+  Button,
+  Switch,
 } from "@mui/material";
 
 import { useAppThemeContext } from "../context/ThemeContext";
+import { AppDrawer } from "./AppDrawer";
 
 export const HeaderNav = () => {
   const [check, setCheck] = useState(false);
@@ -36,7 +37,7 @@ export const HeaderNav = () => {
     []
   );
 
-  const darkModeSwitchStyleSX: SxProps = {
+  /* const darkModeSwitchStyleSX: SxProps = {
     "& .MuiSwitch-track": {
       backgroundColor: themeName === "light" ? "white" : "black",
     },
@@ -47,14 +48,14 @@ export const HeaderNav = () => {
     "--Switch-thumbSize": "25px",
     "--Switch-trackHeight": "30px",
     "--Switch-trackWidth": "60px",
-  };
+  }; */
 
   useEffect(() => {
     console.log(mediaDownSM);
   }, [mediaDownSM]);
 
   return (
-    <CssVarsProvider>
+    <>
       {mediaDownMD && (
         <Box
           sx={{
@@ -114,6 +115,7 @@ export const HeaderNav = () => {
               <NavLink to={"/"}>Tarefas</NavLink>
             </Typography>
           </Box>
+          <AppDrawer />
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -142,11 +144,10 @@ export const HeaderNav = () => {
           )}
 
           <Switch
-            variant="solid"
             checked={check}
             onChange={handleDarkMode}
-            sx={darkModeSwitchStyleSX}
-            slotProps={{
+
+            /*  slotProps={{
               thumb: {
                 input: { "aria-label": "dark mode" },
                 children: check ? (
@@ -158,10 +159,10 @@ export const HeaderNav = () => {
                   <Brightness2Icon fontSize="small" sx={{ color: "white" }} />
                 ),
               },
-            }}
+            }} */
           />
         </Box>
       </Box>
-    </CssVarsProvider>
+    </>
   );
 };
