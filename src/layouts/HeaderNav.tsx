@@ -5,8 +5,15 @@ import { CssVarsProvider, Button } from "@mui/joy";
 import Switch from "@mui/joy/Switch";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness2Icon from "@mui/icons-material/Brightness2";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
-import { Box, SxProps, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  SxProps,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
 import { useAppThemeContext } from "../context/ThemeContext";
 
@@ -16,6 +23,9 @@ export const HeaderNav = () => {
   const { toggleTheme, themeName } = useAppThemeContext();
 
   const theme = useTheme();
+
+  const mediaDownSM = useMediaQuery(theme.breakpoints.down("sm"));
+  const mediaDownMD = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleDarkMode = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,8 +48,26 @@ export const HeaderNav = () => {
     "--Switch-trackHeight": "30px",
     "--Switch-trackWidth": "60px",
   };
+
+  useEffect(() => {
+    console.log(mediaDownSM);
+  }, [mediaDownSM]);
+
   return (
     <CssVarsProvider>
+      {mediaDownMD && (
+        <Box
+          sx={{
+            backgroundColor: `${theme.palette.primary.main}`,
+            textAlign: "center",
+          }}
+        >
+          <Typography component={"h6"} variant="h4" color={"white"}>
+            Organização
+          </Typography>
+        </Box>
+      )}
+
       <Box
         sx={{
           display: "flex",
@@ -52,9 +80,11 @@ export const HeaderNav = () => {
         }}
       >
         <Box component={"nav"} sx={{ display: "flex", alignItems: "center" }}>
-          <Typography component={"h6"} variant="h4" color={"white"}>
-            Organização
-          </Typography>
+          {!mediaDownMD && (
+            <Typography component={"h6"} variant="h4" color={"white"}>
+              Organização
+            </Typography>
+          )}
 
           <Box
             component={"a"}
@@ -87,18 +117,30 @@ export const HeaderNav = () => {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Button
-            sx={{
-              marginRight: "20px",
-              backgroundColor: `${theme.palette.secondary.main}`,
-              transition: "0.3s",
-              ":hover": {
-                backgroundColor: `${theme.palette.secondary.dark}`,
-              },
-            }}
-          >
-            Adicionar Nova Tarefa
-          </Button>
+          {mediaDownMD && (
+            <AddCircleIcon
+              sx={{
+                fontSize: 40,
+                color: `${theme.palette.secondary.main}`,
+                marginRight: 2,
+              }}
+            />
+          )}
+          {!mediaDownMD && (
+            <Button
+              sx={{
+                marginRight: "20px",
+                backgroundColor: `${theme.palette.secondary.main}`,
+                transition: "0.3s",
+                ":hover": {
+                  backgroundColor: `${theme.palette.secondary.dark}`,
+                },
+              }}
+            >
+              Adicionar Nova Tarefa
+            </Button>
+          )}
+
           <Switch
             variant="solid"
             checked={check}
