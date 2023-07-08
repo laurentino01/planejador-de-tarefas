@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -13,12 +13,11 @@ import {
 
 import { useAppThemeContext } from "../context/ThemeContext";
 import { AppDrawer } from "./AppDrawer";
+import { SunIcon } from "../components/SunIcon";
+import { MoonIcon } from "../components/MoonIcon";
 
-const StyleSwitch: SxProps = {
-  "& .MuiSwitch-track": {
-    backgroundColor: "red",
-    opacity: 1,
-  },
+const switchStyle: SxProps = {
+  "& .css-1nn0rgv-MuiButtonBase-root-MuiSwitch-switchBase:hover": {},
 };
 
 export const HeaderNav = () => {
@@ -28,7 +27,6 @@ export const HeaderNav = () => {
 
   const theme = useTheme();
 
-  const mediaDownSM = useMediaQuery(theme.breakpoints.down("sm"));
   const mediaDownMD = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleDarkMode = useCallback(
@@ -114,7 +112,13 @@ export const HeaderNav = () => {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Switch checked={check} onChange={handleDarkMode} sx={StyleSwitch} />
+          <Switch
+            checked={check}
+            checkedIcon={<SunIcon />}
+            icon={<MoonIcon />}
+            onChange={handleDarkMode}
+            sx={switchStyle}
+          />
 
           {mediaDownMD && (
             <AddCircleIcon
