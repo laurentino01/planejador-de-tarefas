@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box } from "@mui/system";
+import { Box, SxProps } from "@mui/system";
 import {
   Typography,
   useTheme,
@@ -13,6 +13,13 @@ import {
 
 import { useAppThemeContext } from "../context/ThemeContext";
 import { AppDrawer } from "./AppDrawer";
+
+const StyleSwitch: SxProps = {
+  "& .MuiSwitch-track": {
+    backgroundColor: "red",
+    opacity: 1,
+  },
+};
 
 export const HeaderNav = () => {
   const [check, setCheck] = useState(false);
@@ -90,7 +97,7 @@ export const HeaderNav = () => {
                 border: "none",
                 color: `${theme.palette.primary.main}`,
                 backgroundColor: "white",
-                padding: "7px 20px 18px 20px",
+                padding: "7px 20px 18.5px 20px",
                 borderRadius: "5px 5px 0 0",
                 cursor: "pointer",
                 transition: "0.3s",
@@ -107,7 +114,8 @@ export const HeaderNav = () => {
         </Box>
 
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Switch checked={check} onChange={handleDarkMode} />
+          <Switch checked={check} onChange={handleDarkMode} sx={StyleSwitch} />
+
           {mediaDownMD && (
             <AddCircleIcon
               sx={{
