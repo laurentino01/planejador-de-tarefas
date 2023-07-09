@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemButton,
   ListItemIcon,
+  Paper,
   Typography,
 } from "@mui/material";
 
@@ -32,7 +33,13 @@ export const AppDrawer = () => {
       >
         <List>
           {listItems.map((item) => (
-            <ListItem sx={{ width: "50vw" }} key={item.name} disablePadding>
+            <ListItem
+              sx={{
+                width: "50vw",
+              }}
+              key={item.name}
+              disablePadding
+            >
               <ListItemButton>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <Typography variant="h6"> Tarefas</Typography>

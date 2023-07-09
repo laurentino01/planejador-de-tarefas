@@ -13,16 +13,16 @@ export const LightTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      400: "#0c70f2",
       main: "#0c70f2",
     },
+
     secondary: {
       main: "#f49034",
       dark: "#CA7322",
     },
     background: {
-      default: "F5F5F5",
-      paper: "#0c70f2",
+      default: "#F5F5F5",
+      paper: "#F5F5F5",
     },
   },
 });
