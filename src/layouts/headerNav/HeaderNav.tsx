@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -21,9 +21,10 @@ import { useRememberDakMode } from "../../hooks/useRememberDakMode";
 export const HeaderNav = () => {
   const { toggleTheme } = useAppThemeContext();
 
-  const [check, setCheck] = useState(false);
-
   const theme = useTheme();
+  const [check, setCheck] = useState(
+    theme.palette.mode === "light" ? true : false
+  );
 
   const handleToggle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.checked);

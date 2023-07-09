@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useCallback,
   useContext,
+  useEffect,
 } from "react";
 import { LightTheme } from "../themes/lightTheme";
 import { DarkTheme } from "../themes/DarkTheme";
@@ -23,7 +24,9 @@ const themeContext = createContext({} as IThemeContextProps);
 export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
   children,
 }) => {
-  const [themeName, setThemeName] = useState<"light" | "dark">("dark");
+  const storage = typeof window !== "undefined" ? localStorage.theme : "dark";
+
+  const [themeName, setThemeName] = useState<"light" | "dark">(storage);
 
   const toggleTheme = useCallback(() => {
     setThemeName((oldTheme) => (oldTheme === "light" ? "dark" : "light"));
@@ -34,6 +37,12 @@ export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
 
     return DarkTheme;
   }, [themeName]);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme.palette.mode);
+    setThemeName(theme.palette.mode);
+  }, [theme, themeName, theme.palette.mode]);
+
   return (
     <themeContext.Provider value={{ themeName, toggleTheme }}>
       <ThemeProvider theme={theme}>
