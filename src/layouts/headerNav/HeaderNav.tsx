@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box, SxProps } from "@mui/system";
+import { Box } from "@mui/system";
 import {
   Typography,
   useTheme,
@@ -11,43 +11,16 @@ import {
   Switch,
 } from "@mui/material";
 
-import { useAppThemeContext } from "../context/ThemeContext";
-import { AppDrawer } from "./AppDrawer";
-import { SunIcon } from "../components/SunIcon";
-import { MoonIcon } from "../components/MoonIcon";
-
-const switchStyle: SxProps = {
-  "& .MuiButtonBase-root ": {
-    padding: "1px",
-    top: "30%",
-    left: "10px",
-  },
-  "& .MuiButtonBase-root.Mui-checked ": {
-    padding: "1px",
-    top: "30%",
-    left: "10px",
-  },
-  "& .MuiSwitch-track": {
-    width: "70px",
-    height: "20px",
-    borderRadius: "13px",
-    opacity: 1,
-    backgroundColor: "black",
-  },
-  "& .css-147uapr-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track ":
-    {
-      width: "70px",
-      height: "20px",
-      borderRadius: "13px",
-      opacity: 1,
-      backgroundColor: "white",
-    },
-};
+import { useAppThemeContext } from "../../context/ThemeContext";
+import { AppDrawer } from "../AppDrawer";
+import { SunIcon } from "../../components/SunIcon";
+import { MoonIcon } from "../../components/MoonIcon";
+import { switchStyle } from "./headerNav.style";
 
 export const HeaderNav = () => {
   const [check, setCheck] = useState(false);
 
-  const { toggleTheme, themeName } = useAppThemeContext();
+  const { toggleTheme } = useAppThemeContext();
 
   const theme = useTheme();
 
