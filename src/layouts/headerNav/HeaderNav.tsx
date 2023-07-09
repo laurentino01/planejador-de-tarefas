@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -16,24 +16,22 @@ import { AppDrawer } from "../AppDrawer";
 import { SunIcon } from "../../components/SunIcon";
 import { MoonIcon } from "../../components/MoonIcon";
 import { switchStyle } from "./headerNav.style";
+import { useRememberDakMode } from "../../hooks/useRememberDakMode";
 
 export const HeaderNav = () => {
-  const [check, setCheck] = useState(false);
-
   const { toggleTheme } = useAppThemeContext();
+
+  const [check, setCheck] = useState(false);
 
   const theme = useTheme();
 
+  const handleToggle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheck(e.target.checked);
+
+    toggleTheme();
+  }, []);
+
   const mediaDownMD = useMediaQuery(theme.breakpoints.down("md"));
-
-  const handleDarkMode = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCheck(e.target.checked);
-
-      toggleTheme();
-    },
-    []
-  );
 
   return (
     <>
@@ -113,7 +111,9 @@ export const HeaderNav = () => {
             checked={check}
             checkedIcon={<SunIcon />}
             icon={<MoonIcon />}
-            onChange={handleDarkMode}
+            onChange={(e) => {
+              handleToggle(e);
+            }}
             sx={switchStyle}
           />
 
