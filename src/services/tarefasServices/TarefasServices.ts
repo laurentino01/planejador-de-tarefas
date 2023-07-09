@@ -33,7 +33,13 @@ const getById = (id: number) => {
     return searchTarefa;
   }
 };
-const create = ({ title, description }) => {
+const create = ({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) => {
   const db = parseLocalDB();
   if (db === undefined) {
     return;

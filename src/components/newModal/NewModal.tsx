@@ -30,6 +30,11 @@ const style: SxProps = {
   p: 4,
 };
 
+interface IFormProps {
+  titulo: string;
+  description: string;
+}
+
 export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -37,16 +42,17 @@ export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
   const {
     register,
     handleSubmit,
-    getValues,
+
     formState: { errors },
-  } = useForm();
+  } = useForm<IFormProps>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const onSubmit = (data) => console.log(getValues());
 
-  /* const handleCreate = (title, description) => {
+  const onSubmit = (data: IFormProps) => {
+    const title = data.titulo;
+    const description = data.description;
     TarefasServices.create({ title, description });
-  }; */
+  };
 
   return (
     <>
@@ -80,7 +86,7 @@ export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
           >
             <Box>
               <TextField
-                {...(register("titulo"), { require: true })}
+                {...register("titulo", { required: true })}
                 id="outlined-basic"
                 label="Título"
                 placeholder="Digite um título. "
@@ -88,11 +94,10 @@ export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
 
                 /*  onChange={(e) => setTitle(e.target.value)} */
               />
-              {errors.exampleRequired && <span>This field is required</span>}
             </Box>
             <Box>
               <TextField
-                {...(register("description"), { require: true })}
+                {...register("description", { required: true })}
                 id="outlined-multiline-static"
                 label="Descrição"
                 multiline
@@ -101,7 +106,6 @@ export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
                 required
                 /* onChange={(e) => setDescription(e.target.value)} */
               />
-              {errors.exampleRequired && <span>This field is required</span>}
             </Box>
             <Button type="submit" variant="contained" disableElevation>
               Criar Tarefa
