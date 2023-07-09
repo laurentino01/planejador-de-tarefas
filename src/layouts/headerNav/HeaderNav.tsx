@@ -17,6 +17,7 @@ import { SunIcon } from "../../components/SunIcon";
 import { MoonIcon } from "../../components/MoonIcon";
 import { switchStyle } from "./headerNav.style";
 import { useRememberDakMode } from "../../hooks/useRememberDakMode";
+import { NewModal } from "../../components/newModal/NewModal";
 
 export const HeaderNav = () => {
   const { toggleTheme } = useAppThemeContext();
@@ -144,6 +145,7 @@ export const HeaderNav = () => {
               Adicionar Nova Tarefa
             </Button>
           )}
+          <NewModal />
         </Box>
       </Box>
     </>

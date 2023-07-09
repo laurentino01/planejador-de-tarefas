@@ -31,7 +31,7 @@ export const AppDrawer = () => {
         open={status}
         sx={{ width: "80vw" }}
       >
-        <List>
+        <List sx={{ marginTop: "40px" }}>
           {listItems.map((item) => (
             <ListItem
               sx={{
