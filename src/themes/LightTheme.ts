@@ -22,7 +22,7 @@ export const LightTheme = createTheme({
     },
     background: {
       default: "#F5F5F5",
-      paper: "#F5F5F5",
+      paper: "#Fff",
     },
   },
 });

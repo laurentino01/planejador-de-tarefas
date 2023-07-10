@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -36,23 +36,26 @@ interface IFormProps {
 }
 
 export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const {
     register,
     handleSubmit,
-
     formState: { errors },
-  } = useForm<IFormProps>();
+  } = useForm<IFormProps>({ defaultValues: { titulo: "", description: "" } });
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const onSubmit = (data: IFormProps) => {
-    const title = data.titulo;
-    const description = data.description;
-    TarefasServices.create({ title, description });
-  };
+  const onSubmit = useCallback(
+    (data: IFormProps) => {
+      const title = data.titulo;
+      const description = data.description;
+      TarefasServices.create({ title, description });
+      handleClose();
+    },
+    [handleClose]
+  );
 
   return (
     <>

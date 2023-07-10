@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { TarefasServices } from "../services/tarefasServices/TarefasServices";
 import { Tarefa, ModalOptions } from "../components";
 import { Add } from "@mui/icons-material";
@@ -14,6 +14,9 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Paper,
+  TableFooter,
+  TablePagination,
 } from "@mui/material";
 
 export const ListaDeTarefas = () => {
@@ -27,6 +30,7 @@ export const ListaDeTarefas = () => {
     description: "",
     completed: false,
   });
+  const [page, setPage] = useState(1);
 
   const openModal = (
     id: number,
@@ -69,6 +73,10 @@ export const ListaDeTarefas = () => {
     );
   }, [targetTarefa]);
 
+  const handlePageChange = (e: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
   return (
     <main className="container tasks-area">
       {controlModal ? (
@@ -86,8 +94,9 @@ export const ListaDeTarefas = () => {
         variant="h4"
         component={"h1"}
       >
-        Otimize seu tempo e se organize com o nosso Planejador Diário.
+        Lista de Tarefas
       </Typography>
+
       <TableContainer
         component={Box}
         display={"flex"}
@@ -95,7 +104,15 @@ export const ListaDeTarefas = () => {
         justifyContent={"center"}
         marginTop={10}
       >
-        <Table sx={{ maxWidth: 900 }}>
+        <Table
+          component={Paper}
+          variant="elevation"
+          sx={{
+            maxWidth: 900,
+            minWidth: 425,
+            marginX: 10,
+          }}
+        >
           <TableHead>
             <TableRow>
               <TableCell>Tarefa</TableCell>
@@ -130,6 +147,16 @@ export const ListaDeTarefas = () => {
               </TableCell>
             </TableRow>
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TablePagination
+                count={lista.length}
+                onPageChange={handlePageChange}
+                rowsPerPage={1}
+                page={page}
+              />
+            </TableRow>
+          </TableFooter>
         </Table>
       </TableContainer>
     </main>
