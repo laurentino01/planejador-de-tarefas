@@ -1,23 +1,11 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { TarefasServices } from "../services/tarefasServices/TarefasServices";
-import { Tarefa, ModalOptions } from "../components";
-import { Add } from "@mui/icons-material";
+import { ModalOptions } from "../components";
+
 import { ITarefa } from "../interfaces/ITarefa";
 /* import "../sass/tasks-area.scss"; */
-import {
-  Box,
-  Button,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Typography,
-  Paper,
-  TableFooter,
-  TablePagination,
-} from "@mui/material";
+import { Typography } from "@mui/material";
+import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<Array<any>>([]);
@@ -30,7 +18,6 @@ export const ListaDeTarefas = () => {
     description: "",
     completed: false,
   });
-  const [page, setPage] = useState(1);
 
   const openModal = (
     id: number,
@@ -73,10 +60,6 @@ export const ListaDeTarefas = () => {
     );
   }, [targetTarefa]);
 
-  const handlePageChange = (e: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
   return (
     <main className="container tasks-area">
       {controlModal ? (
@@ -89,7 +72,7 @@ export const ListaDeTarefas = () => {
       ) : null}
 
       <Typography
-        marginTop={10}
+        marginTop={5}
         textAlign={"center"}
         variant="h4"
         component={"h1"}
@@ -97,68 +80,11 @@ export const ListaDeTarefas = () => {
         Lista de Tarefas
       </Typography>
 
-      <TableContainer
-        component={Box}
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        marginTop={10}
-      >
-        <Table
-          component={Paper}
-          variant="elevation"
-          sx={{
-            maxWidth: 900,
-            minWidth: 425,
-            marginX: 10,
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell>Tarefa</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Opções</TableCell>
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {lista.map((tarefa) => (
-              <Tarefa
-                key={tarefa.id}
-                id={tarefa.id}
-                title={tarefa.title}
-                description={tarefa.description}
-                completed={tarefa.completed}
-                openModal={openModal}
-                setTargetTarefa={setTargetTarefa}
-              />
-            ))}
-            <TableRow>
-              <TableCell>Nova tarefa... </TableCell>
-
-              <TableCell>
-                <Button
-                  onClick={() =>
-                    openModal(0, "string", "string", false, "create")
-                  }
-                >
-                  <Add></Add>
-                </Button>
-              </TableCell>
-            </TableRow>
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                count={lista.length}
-                onPageChange={handlePageChange}
-                rowsPerPage={1}
-                page={page}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+      <TarefasTable
+        lista={lista}
+        openModal={openModal}
+        setTargetTarefa={setTargetTarefa}
+      />
     </main>
   );
 };

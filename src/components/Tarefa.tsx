@@ -37,7 +37,7 @@ export const Tarefa = ({
           {title}
         </Typography>
       </TableCell>
-      <TableCell>
+      <TableCell padding="none">
         <div className="checkContainer">
           <Checkbox
             checked={status}
@@ -54,7 +54,7 @@ export const Tarefa = ({
         </div>
       </TableCell>
 
-      <TableCell>
+      <TableCell padding="none">
         <List component={Box} display={"flex"}>
           <ListItem
             onClick={() => openModal(id, title, description, status, "exclude")}
