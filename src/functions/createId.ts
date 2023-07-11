@@ -1,8 +1,10 @@
-import { ITarefasData } from "../services/tarefasServices/TarefasServices";
+/* import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
 
-export const createId = (arr: ITarefasData[] | undefined) => {
-  if (arr === undefined) {
-    return;
+export const createId = (arr: IListaTarefasData[] | undefined): number | undefined => {
+  if(arr){
+    
+    return id;
   }
-  return arr.length + 1;
+  
 };
+ */

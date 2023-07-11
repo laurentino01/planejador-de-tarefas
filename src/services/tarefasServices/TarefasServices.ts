@@ -1,7 +1,8 @@
 import { EnvironmentViriables } from "../../../environment/EnviromentVariables";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IListaTarefasData {
-  id: number;
+  id: string;
   titulo: string;
   description: string;
   status: boolean;
@@ -24,7 +25,7 @@ const getAll = (): IListaData | undefined => {
   }
 };
 
-const getById = (id: number) => {
+const getById = (id: string) => {
   try {
     const tarefas = getAll()?.tarefas;
 
@@ -54,7 +55,7 @@ const create = (titulo: string, description: string) => {
 
     if (tarefas) {
       const newTarefa: IListaTarefasData = {
-        id: tarefas.length + 1,
+        id: uuidv4(),
         titulo: titulo,
         description: description,
         status: false,
@@ -77,7 +78,12 @@ const create = (titulo: string, description: string) => {
   }
 };
 
-const updateById = ({ id, titulo, description, status }: IListaTarefasData) => {
+const updateById = (
+  id: string,
+  titulo: string,
+  description: string,
+  status: boolean
+) => {
   try {
     const tarefas = getAll()?.tarefas;
 
@@ -92,9 +98,13 @@ const updateById = ({ id, titulo, description, status }: IListaTarefasData) => {
           status: status,
         };
 
+        const newData: IListaData = {
+          tarefas: tarefas,
+          count: tarefas.length,
+        };
         localStorage.setItem(
           EnvironmentViriables.LIST_NAME,
-          JSON.stringify(tarefas)
+          JSON.stringify(newData)
         );
       }
     }
@@ -103,7 +113,7 @@ const updateById = ({ id, titulo, description, status }: IListaTarefasData) => {
   }
 };
 
-const deleteById = (id: number) => {
+const deleteById = (id: string) => {
   try {
     const tarefas = getAll()?.tarefas;
 
@@ -113,10 +123,13 @@ const deleteById = (id: number) => {
         const indexTarefa = tarefas.indexOf(searchTarefa);
         if (indexTarefa) {
           tarefas.splice(indexTarefa, 1);
-
+          const newData: IListaData = {
+            tarefas: tarefas,
+            count: tarefas.length,
+          };
           localStorage.setItem(
             EnvironmentViriables.LIST_NAME,
-            JSON.stringify(tarefas)
+            JSON.stringify(newData)
           );
         }
       }
