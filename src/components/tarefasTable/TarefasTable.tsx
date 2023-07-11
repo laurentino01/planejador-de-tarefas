@@ -182,15 +182,7 @@ export const TarefasTable = ({
                   )
                 : lista
               ).map((tarefa) => (
-                <Tarefa
-                  key={tarefa.id}
-                  id={tarefa.id}
-                  titulo={tarefa.titulo}
-                  description={tarefa.description}
-                  status={tarefa.status}
-                  openModal={openModal}
-                  setTargetTarefa={setTargetTarefa}
-                />
+                <Tarefa key={tarefa.id} id={tarefa.id} openModal={openModal} />
               ))}
             </TableBody>
             <TableFooter>

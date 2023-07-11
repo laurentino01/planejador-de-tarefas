@@ -13,16 +13,9 @@ import {
 import { useHandleTarefas } from "../hooks/useHandleTarefas";
 import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
 
-export const Tarefa = ({
-  id,
-
-  description,
-  status,
-  openModal,
-  setTargetTarefa,
-}: ITarefaProps) => {
-  const [check, setCheck] = useState(status);
+export const Tarefa = ({ id, openModal }: ITarefaProps) => {
   const [tarefa, setTarefa] = useState({} as IListaTarefasData);
+  const [check, setCheck] = useState(tarefa.status);
   const tarefaById = useHandleTarefas().handleTarefaById(id);
   const handleUpdateById = useHandleTarefas().handleUpdateById;
 
@@ -57,10 +50,16 @@ export const Tarefa = ({
       </TableCell>
 
       <TableCell padding="none">
-        {/*  <List component={Box} display={"flex"}>
+        <List component={Box} display={"flex"}>
           <ListItem
             onClick={() =>
-              openModal(id, titulo, description, status, "exclude")
+              openModal(
+                id,
+                tarefa.titulo,
+                tarefa.description,
+                tarefa.status,
+                "exclude"
+              )
             }
             sx={{ cursor: "pointer" }}
             component={"li"}
@@ -68,13 +67,21 @@ export const Tarefa = ({
             <Delete></Delete>
           </ListItem>
           <ListItem
-            onClick={() => openModal(id, titulo, description, status, "edit")}
+            onClick={() =>
+              openModal(
+                id,
+                tarefa.titulo,
+                tarefa.description,
+                tarefa.status,
+                "edit"
+              )
+            }
             sx={{ cursor: "pointer" }}
             component={"li"}
           >
             <Edit></Edit>
           </ListItem>
-        </List> */}
+        </List>
       </TableCell>
     </TableRow>
   );
