@@ -23,6 +23,7 @@ import {
   Typography,
 } from "@mui/material";
 import { ITarefa } from "../../interfaces/ITarefa";
+import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -35,15 +36,24 @@ interface TablePaginationActionsProps {
 }
 
 interface ITarefasTableProps {
-  lista: any[];
-  openModal: (
-    id: number,
+  lista: IListaTarefasData[];
+  setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
+  handleTarefaById: (id: string) => IListaTarefasData | undefined;
+  handleUpdateById: (
+    id: string,
     title: string,
     description: string,
-    completed: boolean,
+    status: boolean
+  ) => void;
+  handleDeleteById: (id: string) => void;
+  handleCreate: (title: string, description: string) => void;
+  openModal: (
+    id: string,
+    titulo: string,
+    description: string,
+    status: boolean,
     opt: string
   ) => void;
-  setTargetTarefa: React.Dispatch<React.SetStateAction<ITarefa>>;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -155,13 +165,6 @@ export const TarefasTable = ({
             </caption>
           </Table>
         ) : (
-          /* <TableFooter>
-            <TableRow>
-              <TableCell colSpan={4}>
-               
-              </TableCell>
-            </TableRow>
-          </TableFooter> */
           <>
             <TableHead>
               <TableRow>
@@ -182,9 +185,9 @@ export const TarefasTable = ({
                 <Tarefa
                   key={tarefa.id}
                   id={tarefa.id}
-                  title={tarefa.title}
+                  titulo={tarefa.titulo}
                   description={tarefa.description}
-                  completed={tarefa.completed}
+                  status={tarefa.status}
                   openModal={openModal}
                   setTargetTarefa={setTargetTarefa}
                 />

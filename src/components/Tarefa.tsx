@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ITarefaProps } from "../interfaces/ITarefaProps";
-import { Edit, Delete, Visibility } from "@mui/icons-material";
+import { Edit, Delete } from "@mui/icons-material";
 import {
   List,
   ListItem,
@@ -13,20 +13,20 @@ import {
 
 export const Tarefa = ({
   id,
-  title,
+  titulo,
   description,
-  completed,
+  status,
   openModal,
   setTargetTarefa,
 }: ITarefaProps) => {
-  const [status, setStatus] = useState(completed);
+  const [check, setCheck] = useState(status);
 
   useEffect(() => {
     setTargetTarefa({
       id: id,
-      title: title,
+      titulo: titulo,
       description: description,
-      completed: completed,
+      status: status,
     });
   }, []);
 
@@ -34,21 +34,21 @@ export const Tarefa = ({
     <TableRow>
       <TableCell>
         <Typography component={"h6"} variant="h6">
-          {title}
+          {titulo}
         </Typography>
       </TableCell>
       <TableCell padding="none">
         <div className="checkContainer">
           <Checkbox
-            checked={status}
+            checked={check}
             onChange={(e) => {
               setTargetTarefa({
                 id: id,
-                title: title,
+                titulo: titulo,
                 description: description,
-                completed: e.target.checked,
+                status: e.target.checked,
               });
-              setStatus(e.target.checked);
+              setCheck(e.target.checked);
             }}
           />
         </div>
@@ -57,27 +57,21 @@ export const Tarefa = ({
       <TableCell padding="none">
         <List component={Box} display={"flex"}>
           <ListItem
-            onClick={() => openModal(id, title, description, status, "exclude")}
+            onClick={() =>
+              openModal(id, titulo, description, status, "exclude")
+            }
             sx={{ cursor: "pointer" }}
             component={"li"}
           >
             <Delete></Delete>
           </ListItem>
           <ListItem
-            onClick={() => openModal(id, title, description, status, "edit")}
+            onClick={() => openModal(id, titulo, description, status, "edit")}
             sx={{ cursor: "pointer" }}
             component={"li"}
           >
             <Edit></Edit>
           </ListItem>
-
-          {/* <ListItem
-            onClick={() => openModal(id, title, description, status, "view")}
-            sx={{ cursor: "pointer" }}
-            component={"li"}
-          >
-            <Visibility></Visibility>
-          </ListItem> */}
         </List>
       </TableCell>
     </TableRow>

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   IListaTarefasData,
   TarefasServices,
@@ -6,24 +6,23 @@ import {
 import { ModalOptions } from "../components";
 
 import { ITarefa } from "../interfaces/ITarefa";
-/* import "../sass/tasks-area.scss"; */
-import { TableRow, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
   const [controlModal, setControlModal] = useState(false);
   const [modalOption, setModalOption] = useState("");
-  const [idTarefa, setIdTarefa] = useState(0);
-  const [targetTarefa, setTargetTarefa] = useState<ITarefa>({
-    id: 0,
-    title: "",
+  const [idTarefa, setIdTarefa] = useState("");
+  const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
+    id: "",
+    titulo: "",
     description: "",
-    completed: false,
+    status: false,
   });
 
   const openModal = (
-    id: number,
+    id: string,
     title: string,
     description: string,
     completed: boolean,
@@ -31,9 +30,9 @@ export const ListaDeTarefas = () => {
   ) => {
     setTargetTarefa({
       id: id,
-      title: title,
+      titulo: title,
       description: description,
-      completed: completed,
+      status: completed,
     });
 
     setControlModal(true);
@@ -75,20 +74,6 @@ export const ListaDeTarefas = () => {
     TarefasServices.create(title, description);
   }, []);
 
-  /* const changeStatus = (id, title, description, status: boolean) => {
-    TarefasServices.updateById(id, title, description, status);
-  }; */
-  /* 
-  useEffect(() => {
-    changeStatus(
-      targetTarefa.id,
-      targetTarefa.title,
-      targetTarefa.description,
-      targetTarefa.completed
-    );
-  }, [targetTarefa]); */
-
-  const teste: any[] = [];
   return (
     <main className="container tasks-area">
       {controlModal ? (
@@ -111,8 +96,12 @@ export const ListaDeTarefas = () => {
 
       <TarefasTable
         lista={lista}
-        openModal={openModal}
+        handleTarefaById={handleTarefaById}
+        handleUpdateById={handleUpdateById}
+        handleDeleteById={handleDeleteById}
+        handleCreate={handleCreate}
         setTargetTarefa={setTargetTarefa}
+        openModal={openModal}
       />
     </main>
   );
