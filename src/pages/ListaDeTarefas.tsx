@@ -5,9 +5,9 @@ import {
 } from "../services/tarefasServices/TarefasServices";
 import { ModalOptions } from "../components";
 
-import { ITarefa } from "../interfaces/ITarefa";
 import { Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
+import { useHandleTarefas } from "../hooks/useHandleTarefas";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
@@ -20,6 +20,8 @@ export const ListaDeTarefas = () => {
     description: "",
     status: false,
   });
+
+  const listaTarefas = useHandleTarefas().lista;
 
   const openModal = (
     id: string,
@@ -45,34 +47,8 @@ export const ListaDeTarefas = () => {
   };
 
   useEffect(() => {
-    const listaTarefas = TarefasServices.getAll()?.tarefas;
-    if (listaTarefas) {
-      setLista(listaTarefas);
-    }
-  }, []);
-
-  const handleTarefaById = useCallback((id: string) => {
-    const tarefa = TarefasServices.getById(id);
-    if (tarefa) {
-      return tarefa;
-    }
-    return undefined;
-  }, []);
-
-  const handleUpdateById = useCallback(
-    (id: string, title: string, description: string, status: boolean) => {
-      TarefasServices.updateById(id, title, description, status);
-    },
-    []
-  );
-
-  const handleDeleteById = useCallback((id: string) => {
-    TarefasServices.deleteById(id);
-  }, []);
-
-  const handleCreate = useCallback((title: string, description: string) => {
-    TarefasServices.create(title, description);
-  }, []);
+    setLista(listaTarefas);
+  }, [listaTarefas]);
 
   return (
     <main className="container tasks-area">
@@ -96,10 +72,10 @@ export const ListaDeTarefas = () => {
 
       <TarefasTable
         lista={lista}
-        handleTarefaById={handleTarefaById}
+        /* handleTarefaById={handleTarefaById}
         handleUpdateById={handleUpdateById}
         handleDeleteById={handleDeleteById}
-        handleCreate={handleCreate}
+        handleCreate={handleCreate} */
         setTargetTarefa={setTargetTarefa}
         openModal={openModal}
       />

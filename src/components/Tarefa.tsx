@@ -10,31 +10,33 @@ import {
   Checkbox,
   Box,
 } from "@mui/material";
+import { useHandleTarefas } from "../hooks/useHandleTarefas";
+import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
 
 export const Tarefa = ({
   id,
-  titulo,
+
   description,
   status,
   openModal,
   setTargetTarefa,
 }: ITarefaProps) => {
   const [check, setCheck] = useState(status);
+  const [tarefa, setTarefa] = useState({} as IListaTarefasData);
+  const tarefaById = useHandleTarefas().handleTarefaById(id);
+  const handleUpdateById = useHandleTarefas().handleUpdateById;
 
   useEffect(() => {
-    setTargetTarefa({
-      id: id,
-      titulo: titulo,
-      description: description,
-      status: status,
-    });
+    if (tarefaById) {
+      setTarefa(tarefaById);
+    }
   }, []);
 
   return (
     <TableRow>
       <TableCell>
         <Typography component={"h6"} variant="h6">
-          {titulo}
+          {tarefa.titulo}
         </Typography>
       </TableCell>
       <TableCell padding="none">
@@ -42,20 +44,20 @@ export const Tarefa = ({
           <Checkbox
             checked={check}
             onChange={(e) => {
-              setTargetTarefa({
-                id: id,
-                titulo: titulo,
-                description: description,
-                status: e.target.checked,
-              });
-              setCheck(e.target.checked);
+              handleUpdateById(
+                tarefa.id,
+                tarefa.titulo,
+                tarefa.description,
+                e.target.checked
+              ),
+                setCheck(e.target.checked);
             }}
           />
         </div>
       </TableCell>
 
       <TableCell padding="none">
-        <List component={Box} display={"flex"}>
+        {/*  <List component={Box} display={"flex"}>
           <ListItem
             onClick={() =>
               openModal(id, titulo, description, status, "exclude")
@@ -72,7 +74,7 @@ export const Tarefa = ({
           >
             <Edit></Edit>
           </ListItem>
-        </List>
+        </List> */}
       </TableCell>
     </TableRow>
   );

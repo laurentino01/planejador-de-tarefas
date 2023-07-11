@@ -22,7 +22,7 @@ import {
   useTheme,
   Typography,
 } from "@mui/material";
-import { ITarefa } from "../../interfaces/ITarefa";
+
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 
 interface TablePaginationActionsProps {
@@ -38,7 +38,7 @@ interface TablePaginationActionsProps {
 interface ITarefasTableProps {
   lista: IListaTarefasData[];
   setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
-  handleTarefaById: (id: string) => IListaTarefasData | undefined;
+  /* handleTarefaById: (id: string) => IListaTarefasData | undefined;
   handleUpdateById: (
     id: string,
     title: string,
@@ -46,7 +46,7 @@ interface ITarefasTableProps {
     status: boolean
   ) => void;
   handleDeleteById: (id: string) => void;
-  handleCreate: (title: string, description: string) => void;
+  handleCreate: (title: string, description: string) => void; */
   openModal: (
     id: string,
     titulo: string,
@@ -192,19 +192,6 @@ export const TarefasTable = ({
                   setTargetTarefa={setTargetTarefa}
                 />
               ))}
-              {/* <TableRow>
-          <TableCell colSpan={2}>Nova tarefa... </TableCell>
-
-          <TableCell>
-            <Button
-              onClick={() =>
-                openModal(0, "string", "string", false, "create")
-              }
-            >
-              <Add></Add>
-            </Button>
-          </TableCell>
-        </TableRow> */}
             </TableBody>
             <TableFooter>
               <TableRow>
