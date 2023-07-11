@@ -1,22 +1,23 @@
 import { EnvironmentViriables } from "../../../environment/EnviromentVariables";
 
-export interface ITarefasData {
+export interface IListaTarefasData {
   id: number;
   titulo: string;
   description: string;
   status: boolean;
 }
 export interface IListaData {
-  tarefas: ITarefasData[];
+  tarefas: IListaTarefasData[];
   count: number;
 }
 
-const getAll = () => {
+const getAll = (): IListaData | undefined => {
   try {
     const result = localStorage.getItem(EnvironmentViriables.LIST_NAME);
     if (result) {
-      const listaTarefas: IListaData = JSON.parse(result);
-      return listaTarefas;
+      const listaData: IListaData = JSON.parse(result);
+
+      return listaData;
     }
   } catch (err) {
     new Error(err.message);
@@ -25,8 +26,8 @@ const getAll = () => {
 
 const getById = (id: number) => {
   try {
-    const tarefasData = getAll();
-    const tarefas = tarefasData?.tarefas;
+    const tarefas = getAll()?.tarefas;
+
     const searchTarefa = tarefas?.find((o) => o.id === id);
     if (searchTarefa !== undefined) {
       return searchTarefa;
@@ -36,15 +37,23 @@ const getById = (id: number) => {
   }
 };
 
-const create = ({
-  titulo,
-  description,
-}: Omit<ITarefasData, "id" & "status">) => {
+const create = (titulo: string, description: string) => {
   try {
-    const tarefasData = getAll();
-    const tarefas = tarefasData?.tarefas;
+    if (!localStorage[EnvironmentViriables.LIST_NAME]) {
+      const newListData: IListaData = {
+        tarefas: [],
+        count: 0,
+      };
+      localStorage.setItem(
+        EnvironmentViriables.LIST_NAME,
+        JSON.stringify(newListData)
+      );
+    }
+
+    const tarefas = getAll()?.tarefas;
+
     if (tarefas) {
-      const newTarefa: ITarefasData = {
+      const newTarefa: IListaTarefasData = {
         id: tarefas.length + 1,
         titulo: titulo,
         description: description,
@@ -52,9 +61,15 @@ const create = ({
       };
 
       tarefas.push(newTarefa);
+
+      const newListaData: IListaData = {
+        tarefas: tarefas,
+        count: tarefas.length,
+      };
+
       localStorage.setItem(
         EnvironmentViriables.LIST_NAME,
-        JSON.stringify(tarefas)
+        JSON.stringify(newListaData)
       );
     }
   } catch (err) {
@@ -62,10 +77,10 @@ const create = ({
   }
 };
 
-const updateById = ({ id, titulo, description, status }: ITarefasData) => {
+const updateById = ({ id, titulo, description, status }: IListaTarefasData) => {
   try {
-    const tarefasData = getAll();
-    const tarefas = tarefasData?.tarefas;
+    const tarefas = getAll()?.tarefas;
+
     if (tarefas) {
       const searchTarefa = tarefas.find((o) => o.id === id);
       if (searchTarefa) {
@@ -90,14 +105,13 @@ const updateById = ({ id, titulo, description, status }: ITarefasData) => {
 
 const deleteById = (id: number) => {
   try {
-    const tarefasData = getAll();
-    const tarefas = tarefasData?.tarefas;
+    const tarefas = getAll()?.tarefas;
+
     if (tarefas) {
       const searchTarefa = tarefas.find((o) => o.id === id);
       if (searchTarefa) {
         const indexTarefa = tarefas.indexOf(searchTarefa);
-        if (searchTarefa) {
-          const indexTarefa = tarefas.indexOf(searchTarefa);
+        if (indexTarefa) {
           tarefas.splice(indexTarefa, 1);
 
           localStorage.setItem(

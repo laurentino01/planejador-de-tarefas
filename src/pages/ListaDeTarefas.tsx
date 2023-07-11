@@ -6,6 +6,7 @@ import { ITarefa } from "../interfaces/ITarefa";
 /* import "../sass/tasks-area.scss"; */
 import { TableRow, Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
+import { EnvironmentViriables } from "../../environment/EnviromentVariables";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<Array<any>>([]);
@@ -42,7 +43,13 @@ export const ListaDeTarefas = () => {
     }
   };
 
-  useEffect(() => {}, [targetTarefa]);
+  useEffect(() => {
+    /* localStorage.removeItem(EnvironmentViriables.LIST_NAME); */
+
+    const data = TarefasServices.getAll();
+
+    console.log(data?.tarefas + " " + data?.count);
+  }, []);
 
   /* const changeStatus = (id, title, description, status: boolean) => {
     TarefasServices.updateById(id, title, description, status);
