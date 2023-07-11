@@ -1,99 +1,114 @@
-import { createId } from "../../functions/createId";
+import { EnvironmentViriables } from "../../../environment/EnviromentVariables";
 
-import { db } from "../db/db";
-
-if (!localStorage.db) {
-  localStorage.setItem("db", JSON.stringify(db));
+export interface ITarefasData {
+  id: number;
+  titulo: string;
+  description: string;
+  status: boolean;
+}
+export interface IListaData {
+  tarefas: ITarefasData[];
+  count: number;
 }
 
-const localDB = localStorage.getItem("db");
-
-const parseLocalDB = () => {
-  if (localDB) {
-    const db: Array<any> = JSON.parse(localDB);
-    if (db !== undefined) {
-      return db;
-    }
-  }
-};
-
 const getAll = () => {
-  return parseLocalDB();
+  try {
+    const result = localStorage.getItem(EnvironmentViriables.LIST_NAME);
+    if (result) {
+      const listaTarefas: IListaData = JSON.parse(result);
+      return listaTarefas;
+    }
+  } catch (err) {
+    new Error(err.message);
+  }
 };
 
 const getById = (id: number) => {
-  const db = parseLocalDB();
-  if (db === undefined) {
-    return;
-  }
-
-  const searchTarefa = db.find((o) => o.id === id);
-
-  if (searchTarefa !== undefined) {
-    return searchTarefa;
+  try {
+    const tarefasData = getAll();
+    const tarefas = tarefasData?.tarefas;
+    const searchTarefa = tarefas?.find((o) => o.id === id);
+    if (searchTarefa !== undefined) {
+      return searchTarefa;
+    }
+  } catch (err) {
+    new Error(err.message);
   }
 };
+
 const create = ({
-  title,
+  titulo,
   description,
-}: {
-  title: string;
-  description: string;
-}) => {
-  const db = parseLocalDB();
-  if (db === undefined) {
-    return;
-  }
+}: Omit<ITarefasData, "id" & "status">) => {
+  try {
+    const tarefasData = getAll();
+    const tarefas = tarefasData?.tarefas;
+    if (tarefas) {
+      const newTarefa: ITarefasData = {
+        id: tarefas.length + 1,
+        titulo: titulo,
+        description: description,
+        status: false,
+      };
 
-  const id = createId(db);
-  const tarefa = {
-    id: id,
-    title: title,
-    description: description,
-    completed: false,
-  };
-  db.push(tarefa);
-
-  localStorage.setItem("db", JSON.stringify(db));
-};
-
-const updateById = (
-  id: number,
-  title: string,
-  description: string,
-  completed: boolean
-) => {
-  const db = parseLocalDB();
-  if (db === undefined) {
-    return;
-  }
-  const searchTarefa = db.find((o) => o.id === id);
-
-  if (searchTarefa) {
-    const indexTarefa = db.indexOf(searchTarefa);
-    db[indexTarefa] = {
-      id: id,
-      title: title,
-      description: description,
-      completed: completed,
-    };
-
-    localStorage.setItem("db", JSON.stringify(db));
+      tarefas.push(newTarefa);
+      localStorage.setItem(
+        EnvironmentViriables.LIST_NAME,
+        JSON.stringify(tarefas)
+      );
+    }
+  } catch (err) {
+    new Error(err.message);
   }
 };
+
+const updateById = ({ id, titulo, description, status }: ITarefasData) => {
+  try {
+    const tarefasData = getAll();
+    const tarefas = tarefasData?.tarefas;
+    if (tarefas) {
+      const searchTarefa = tarefas.find((o) => o.id === id);
+      if (searchTarefa) {
+        const indexTarefa = tarefas.indexOf(searchTarefa);
+        tarefas[indexTarefa] = {
+          id: id,
+          titulo: titulo,
+          description: description,
+          status: status,
+        };
+
+        localStorage.setItem(
+          EnvironmentViriables.LIST_NAME,
+          JSON.stringify(tarefas)
+        );
+      }
+    }
+  } catch (err) {
+    new Error(err.message);
+  }
+};
+
 const deleteById = (id: number) => {
-  const db = parseLocalDB();
-  if (db === undefined) {
-    return;
-  }
+  try {
+    const tarefasData = getAll();
+    const tarefas = tarefasData?.tarefas;
+    if (tarefas) {
+      const searchTarefa = tarefas.find((o) => o.id === id);
+      if (searchTarefa) {
+        const indexTarefa = tarefas.indexOf(searchTarefa);
+        if (searchTarefa) {
+          const indexTarefa = tarefas.indexOf(searchTarefa);
+          tarefas.splice(indexTarefa, 1);
 
-  const searchTarefa = db.find((o) => o.id === id);
-
-  if (searchTarefa) {
-    const indexTarefa = db.indexOf(searchTarefa);
-    db.splice(indexTarefa, 1);
-
-    localStorage.setItem("db", JSON.stringify(db));
+          localStorage.setItem(
+            EnvironmentViriables.LIST_NAME,
+            JSON.stringify(tarefas)
+          );
+        }
+      }
+    }
+  } catch (err) {
+    new Error(err.message);
   }
 };
 

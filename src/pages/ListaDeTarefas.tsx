@@ -4,7 +4,7 @@ import { ModalOptions } from "../components";
 
 import { ITarefa } from "../interfaces/ITarefa";
 /* import "../sass/tasks-area.scss"; */
-import { Typography } from "@mui/material";
+import { TableRow, Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 
 export const ListaDeTarefas = () => {
@@ -42,15 +42,12 @@ export const ListaDeTarefas = () => {
     }
   };
 
-  useEffect(() => {
-    const results = TarefasServices.getAll();
-    if (results) setLista(results);
-  }, [targetTarefa]);
+  useEffect(() => {}, [targetTarefa]);
 
-  const changeStatus = (id, title, description, status: boolean) => {
+  /* const changeStatus = (id, title, description, status: boolean) => {
     TarefasServices.updateById(id, title, description, status);
-  };
-
+  }; */
+  /* 
   useEffect(() => {
     changeStatus(
       targetTarefa.id,
@@ -58,8 +55,9 @@ export const ListaDeTarefas = () => {
       targetTarefa.description,
       targetTarefa.completed
     );
-  }, [targetTarefa]);
+  }, [targetTarefa]); */
 
+  const teste: any[] = [];
   return (
     <main className="container tasks-area">
       {controlModal ? (

@@ -4,7 +4,6 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import IconButton from "@mui/material/IconButton";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
-import { Add } from "@mui/icons-material";
 
 import { Tarefa } from "../Tarefa";
 
@@ -21,7 +20,9 @@ import {
   TableFooter,
   TablePagination,
   useTheme,
+  Typography,
 } from "@mui/material";
+import { ITarefa } from "../../interfaces/ITarefa";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -31,6 +32,18 @@ interface TablePaginationActionsProps {
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number
   ) => void;
+}
+
+interface ITarefasTableProps {
+  lista: any[];
+  openModal: (
+    id: number,
+    title: string,
+    description: string,
+    completed: boolean,
+    opt: string
+  ) => void;
+  setTargetTarefa: React.Dispatch<React.SetStateAction<ITarefa>>;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -103,7 +116,11 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
   );
 }
 
-export const TarefasTable = ({ lista, openModal, setTargetTarefa }) => {
+export const TarefasTable = ({
+  lista,
+  openModal,
+  setTargetTarefa,
+}: ITarefasTableProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
 
@@ -129,54 +146,76 @@ export const TarefasTable = ({ lista, openModal, setTargetTarefa }) => {
           borderRadius: 3,
         }}
       >
-        <TableHead>
-          <TableRow>
-            <TableCell>Tarefa</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Opções</TableCell>
-          </TableRow>
-        </TableHead>
+        {lista.length === 0 ? (
+          <Table>
+            <caption>
+              <Typography textAlign={"center"} variant="h6">
+                Não há nada para fazer.
+              </Typography>
+            </caption>
+          </Table>
+        ) : (
+          /* <TableFooter>
+            <TableRow>
+              <TableCell colSpan={4}>
+               
+              </TableCell>
+            </TableRow>
+          </TableFooter> */
+          <>
+            <TableHead>
+              <TableRow>
+                <TableCell>Tarefa</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Opções</TableCell>
+              </TableRow>
+            </TableHead>
 
-        <TableBody>
-          {(rowsPerPage > 0
-            ? lista.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-            : lista
-          ).map((tarefa) => (
-            <Tarefa
-              key={tarefa.id}
-              id={tarefa.id}
-              title={tarefa.title}
-              description={tarefa.description}
-              completed={tarefa.completed}
-              openModal={openModal}
-              setTargetTarefa={setTargetTarefa}
-            />
-          ))}
-          {/* <TableRow>
-            <TableCell colSpan={2}>Nova tarefa... </TableCell>
+            <TableBody>
+              {(rowsPerPage > 0
+                ? lista.slice(
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
+                : lista
+              ).map((tarefa) => (
+                <Tarefa
+                  key={tarefa.id}
+                  id={tarefa.id}
+                  title={tarefa.title}
+                  description={tarefa.description}
+                  completed={tarefa.completed}
+                  openModal={openModal}
+                  setTargetTarefa={setTargetTarefa}
+                />
+              ))}
+              {/* <TableRow>
+          <TableCell colSpan={2}>Nova tarefa... </TableCell>
 
-            <TableCell>
-              <Button
-                onClick={() =>
-                  openModal(0, "string", "string", false, "create")
-                }
-              >
-                <Add></Add>
-              </Button>
-            </TableCell>
-          </TableRow> */}
-        </TableBody>
-        <TableFooter>
-          <TableRow>
-            <TablePagination
-              count={lista.length}
-              onPageChange={handlePageChange}
-              rowsPerPage={5}
-              page={page}
-              ActionsComponent={TablePaginationActions}
-            />
-          </TableRow>
-        </TableFooter>
+          <TableCell>
+            <Button
+              onClick={() =>
+                openModal(0, "string", "string", false, "create")
+              }
+            >
+              <Add></Add>
+            </Button>
+          </TableCell>
+        </TableRow> */}
+            </TableBody>
+            <TableFooter>
+              <TableRow>
+                <TablePagination
+                  count={lista.length}
+                  onPageChange={handlePageChange}
+                  rowsPerPage={5}
+                  page={page}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </>
+        )}
       </Table>
     </TableContainer>
   );
