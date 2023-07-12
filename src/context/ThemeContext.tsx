@@ -10,6 +10,7 @@ import { LightTheme } from "../themes/lightTheme";
 import { DarkTheme } from "../themes/DarkTheme";
 import { ThemeProvider } from "@emotion/react";
 import Box from "@mui/material/Box";
+import { useMediaQuery } from "@mui/material";
 
 interface IThemeContextProps {
   themeName: "light" | "dark";
@@ -38,6 +39,8 @@ export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
     return DarkTheme;
   }, [themeName]);
 
+  const mediaDownMD = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     localStorage.setItem("theme", theme.palette.mode);
     setThemeName(theme.palette.mode);
@@ -48,7 +51,8 @@ export const AppThemeProvider: React.FC<IAppThemeProviderProps> = ({
       <ThemeProvider theme={theme}>
         <Box
           width={"100vw"}
-          height={"100vh"}
+          height={mediaDownMD ? "auto" : "100vh"}
+          paddingBottom={mediaDownMD ? 5 : 0}
           bgcolor={theme.palette.background.default}
         >
           {children}

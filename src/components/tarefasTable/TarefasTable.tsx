@@ -5,7 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 
-import { Tarefa } from "../Tarefa";
+import { Tarefa } from "./Tarefa";
 
 import {
   Box,
@@ -139,31 +139,35 @@ export const TarefasTable = ({
   };
 
   return (
-    <TableContainer
-      component={Box}
+    <Box
+      variant="outlined"
+      component={Paper}
       display={"flex"}
       alignItems={"center"}
       justifyContent={"center"}
       marginTop={5}
+      sx={{
+        maxWidth: 900,
+        width: "90%",
+        marginX: "auto",
+        borderRadius: 3,
+      }}
     >
       <Table
-        component={Paper}
-        variant="elevation"
-        sx={{
+        aria-label="simple table"
+        /*  sx={{
           maxWidth: 900,
           minWidth: 425,
           marginX: 10,
           borderRadius: 3,
-        }}
+        }} */
       >
         {lista.length === 0 ? (
-          <Table>
-            <caption>
-              <Typography textAlign={"center"} variant="h6">
-                Não há nada para fazer.
-              </Typography>
-            </caption>
-          </Table>
+          <caption>
+            <Typography textAlign={"center"} variant="h6">
+              Não há nada para fazer.
+            </Typography>
+          </caption>
         ) : (
           <>
             <TableHead>
@@ -182,7 +186,14 @@ export const TarefasTable = ({
                   )
                 : lista
               ).map((tarefa) => (
-                <Tarefa key={tarefa.id} id={tarefa.id} openModal={openModal} />
+                <Tarefa
+                  key={tarefa.id}
+                  id={tarefa.id}
+                  titulo={tarefa.titulo}
+                  description={tarefa.description}
+                  status={tarefa.status}
+                  openModal={openModal}
+                />
               ))}
             </TableBody>
             <TableFooter>
@@ -199,6 +210,6 @@ export const TarefasTable = ({
           </>
         )}
       </Table>
-    </TableContainer>
+    </Box>
   );
 };

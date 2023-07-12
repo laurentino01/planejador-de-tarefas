@@ -13,10 +13,10 @@ import {
 
 import { useAppThemeContext } from "../../context/ThemeContext";
 import { AppDrawer } from "../AppDrawer";
-import { SunIcon } from "../../components/SunIcon";
-import { MoonIcon } from "../../components/MoonIcon";
+import { SunIcon } from "../../components/icons/SunIcon";
+import { MoonIcon } from "../../components/icons/MoonIcon";
 import { switchStyle } from "./headerNav.style";
-import { NewModal } from "../../components/newModal/NewModal";
+import { NewCreateModal } from "../../components/newModal/NewCreateModal";
 
 export const HeaderNav = () => {
   const { toggleTheme } = useAppThemeContext();
@@ -77,7 +77,6 @@ export const HeaderNav = () => {
           )}
 
           <Box
-            component={"a"}
             sx={{
               background: "none",
               ":hover": { background: "none" },
@@ -148,7 +147,9 @@ export const HeaderNav = () => {
               Adicionar Nova Tarefa
             </Button>
           )}
-          {isOpen && <NewModal isOpen={isOpen} handleClose={handleClose} />}
+          {isOpen && (
+            <NewCreateModal isOpen={isOpen} handleClose={handleClose} />
+          )}
         </Box>
       </Box>
     </>

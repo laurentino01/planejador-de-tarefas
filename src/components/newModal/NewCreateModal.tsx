@@ -10,7 +10,6 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
-import { ITarefaModuleProps } from "../../interfaces/ITarefaModuleProps";
 import { TarefasServices } from "../../services/tarefasServices/TarefasServices";
 
 const style: SxProps = {
@@ -35,7 +34,7 @@ interface IFormProps {
   description: string;
 }
 
-export const NewModal = ({
+export const NewCreateModal = ({
   isOpen,
   handleClose,
 }: {
