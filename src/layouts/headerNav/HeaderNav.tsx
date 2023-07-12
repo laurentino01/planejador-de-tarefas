@@ -16,16 +16,17 @@ import { AppDrawer } from "../AppDrawer";
 import { SunIcon } from "../../components/SunIcon";
 import { MoonIcon } from "../../components/MoonIcon";
 import { switchStyle } from "./headerNav.style";
-import { useRememberDakMode } from "../../hooks/useRememberDakMode";
 import { NewModal } from "../../components/newModal/NewModal";
 
 export const HeaderNav = () => {
   const { toggleTheme } = useAppThemeContext();
-
   const theme = useTheme();
   const [check, setCheck] = useState(
     theme.palette.mode === "light" ? true : false
   );
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   const handleToggle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.checked);
@@ -121,6 +122,7 @@ export const HeaderNav = () => {
 
           {mediaDownMD && (
             <AddCircleIcon
+              onClick={handleOpen}
               sx={{
                 fontSize: 40,
                 color: "white",
@@ -132,6 +134,7 @@ export const HeaderNav = () => {
 
           {!mediaDownMD && (
             <Button
+              onClick={handleOpen}
               sx={{
                 color: "white",
                 marginRight: "20px",
@@ -145,7 +148,7 @@ export const HeaderNav = () => {
               Adicionar Nova Tarefa
             </Button>
           )}
-          <NewModal />
+          {isOpen && <NewModal isOpen={isOpen} handleClose={handleClose} />}
         </Box>
       </Box>
     </>

@@ -35,23 +35,24 @@ interface IFormProps {
   description: string;
 }
 
-export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+export const NewModal = ({
+  isOpen,
+  handleClose,
+}: {
+  isOpen: boolean;
+  handleClose: () => void;
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormProps>({ defaultValues: { titulo: "", description: "" } });
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
   const onSubmit = useCallback(
     (data: IFormProps) => {
       const title = data.titulo;
       const description = data.description;
-      TarefasServices.create({ title, description });
+      TarefasServices.create(title, description);
       handleClose();
     },
     [handleClose]
@@ -59,11 +60,8 @@ export const NewModal = ({ closeModal, targetTarefa }: ITarefaModuleProps) => {
 
   return (
     <>
-      <Button onClick={handleOpen} sx={{ backgroundColor: "white" }}>
-        Open modal
-      </Button>
       <Modal
-        open={open}
+        open={isOpen}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
