@@ -9,6 +9,7 @@ import {
   Typography,
   Checkbox,
   Box,
+  IconButton,
 } from "@mui/material";
 import { useHandleTarefas } from "../hooks/useHandleTarefas";
 import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
@@ -50,8 +51,8 @@ export const Tarefa = ({ id, openModal }: ITarefaProps) => {
       </TableCell>
 
       <TableCell padding="none">
-        <List component={Box} display={"flex"}>
-          <ListItem
+        <Box component={Box} display={"flex"}>
+          <IconButton
             onClick={() =>
               openModal(
                 id,
@@ -65,8 +66,8 @@ export const Tarefa = ({ id, openModal }: ITarefaProps) => {
             component={"li"}
           >
             <Delete></Delete>
-          </ListItem>
-          <ListItem
+          </IconButton>
+          <IconButton
             onClick={() =>
               openModal(
                 id,
@@ -80,8 +81,8 @@ export const Tarefa = ({ id, openModal }: ITarefaProps) => {
             component={"li"}
           >
             <Edit></Edit>
-          </ListItem>
-        </List>
+          </IconButton>
+        </Box>
       </TableCell>
     </TableRow>
   );
