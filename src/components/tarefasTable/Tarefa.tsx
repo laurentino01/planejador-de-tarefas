@@ -14,6 +14,7 @@ import {
 import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 import { NewViewModal } from "../newModal/NewViewModal";
+import { NewEditModal } from "../newModal/NewEditModal";
 
 export const Tarefa = ({
   id,
@@ -30,13 +31,10 @@ export const Tarefa = ({
   const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
 
-  useEffect(() => {
-    console.log("component tarefa : " + status);
-  }, [status]);
-
   return (
     <>
-      <NewViewModal isOpen={isOpen} handleClose={handleClose} id={id} />
+      {/* <NewViewModal isOpen={isOpen} handleClose={handleClose} id={id} /> */}
+      <NewEditModal isOpen={isOpen} handleClose={handleClose} id={id} />
       <TableRow>
         <TableCell>
           <Typography
@@ -72,7 +70,7 @@ export const Tarefa = ({
               <Delete></Delete>
             </IconButton>
             <IconButton
-              onClick={() => openModal(id, titulo, description, status, "edit")}
+              onClick={handleOpen}
               sx={{ cursor: "pointer" }}
               component={"li"}
             >

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import IconButton from "@mui/material/IconButton";
@@ -24,6 +24,7 @@ import {
 } from "@mui/material";
 
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
+import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 
 interface TablePaginationActionsProps {
   count: number;
@@ -38,15 +39,6 @@ interface TablePaginationActionsProps {
 interface ITarefasTableProps {
   lista: IListaTarefasData[];
   setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
-  /* handleTarefaById: (id: string) => IListaTarefasData | undefined;
-  handleUpdateById: (
-    id: string,
-    title: string,
-    description: string,
-    status: boolean
-  ) => void;
-  handleDeleteById: (id: string) => void;
-  handleCreate: (title: string, description: string) => void; */
   openModal: (
     id: string,
     titulo: string,
@@ -128,8 +120,8 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 
 export const TarefasTable = ({
   lista,
-  openModal,
   setTargetTarefa,
+  openModal,
 }: ITarefasTableProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);

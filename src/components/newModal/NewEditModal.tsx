@@ -6,11 +6,12 @@ import {
   SxProps,
   TextField,
   Typography,
+  useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
-import { TarefasServices } from "../../services/tarefasServices/TarefasServices";
+import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -29,32 +30,45 @@ const style: SxProps = {
   p: 4,
 };
 
-interface IFormProps {
+interface IFormEditProps {
+  id: string;
   titulo: string;
   description: string;
+  status: string;
 }
 
-export const NewCreateModal = ({
+export const NewEditModal = ({
   isOpen,
   handleClose,
+  id,
 }: {
   isOpen: boolean;
   handleClose: () => void;
+  id: string;
 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormProps>({ defaultValues: { titulo: "", description: "" } });
+  } = useForm<IFormEditProps>({
+    defaultValues: { titulo: "", description: "" },
+  });
+  const tarefaById = useHandleTarefas().handleTarefaById(id);
+  const handleUpdateById = useHandleTarefas().handleUpdateById;
 
   const onSubmit = useCallback(
-    (data: IFormProps) => {
-      const title = data.titulo;
-      const description = data.description;
-      TarefasServices.create(title, description);
+    (data: IFormEditProps) => {
+      if (tarefaById) {
+        const id = tarefaById?.id;
+        const titulo = data.titulo;
+        const description = data.description;
+        const status = tarefaById?.status;
+        handleUpdateById(id, titulo, description, status);
+      }
+
       handleClose();
     },
-    [handleClose]
+    [handleClose, tarefaById]
   );
 
   return (
@@ -71,7 +85,7 @@ export const NewCreateModal = ({
             onClick={handleClose}
           ></CloseIcon>
           <Typography component={"h2"} variant="h4">
-            Criar Nova Tarefa
+            Editar Tarefa
           </Typography>
 
           <Box
@@ -88,8 +102,8 @@ export const NewCreateModal = ({
               <TextField
                 {...register("titulo", { required: true })}
                 id="outlined-basic"
-                label="Título"
-                placeholder="Digite um título. "
+                label={`${tarefaById?.titulo}`}
+                placeholder="Digite um novo título. "
                 required
               />
             </Box>
@@ -97,15 +111,15 @@ export const NewCreateModal = ({
               <TextField
                 {...register("description", { required: true })}
                 id="outlined-multiline-static"
-                label="Descrição"
+                label="Nova Descrição"
                 multiline
                 rows={4}
-                placeholder="Digite uma descrição."
+                placeholder={`${tarefaById?.description}`}
                 required
               />
             </Box>
             <Button type="submit" variant="contained" disableElevation>
-              Criar Tarefa
+              Editar Tarefa
             </Button>
           </Box>
         </Box>

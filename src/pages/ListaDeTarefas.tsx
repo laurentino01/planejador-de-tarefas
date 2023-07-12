@@ -8,8 +8,11 @@ import { ModalOptions } from "../components";
 import { Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 import { useHandleTarefas } from "../hooks/useHandleTarefas";
+import { EnvironmentViriables } from "../../environment/EnviromentVariables";
 
 export const ListaDeTarefas = () => {
+  let storage: Storage = localStorage[EnvironmentViriables.LIST_NAME];
+
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
   const [controlModal, setControlModal] = useState(false);
   const [modalOption, setModalOption] = useState("");
@@ -47,8 +50,10 @@ export const ListaDeTarefas = () => {
   };
 
   useEffect(() => {
-    setLista(listaTarefas);
-  }, [listaTarefas]);
+    if (listaTarefas) {
+      setLista(listaTarefas);
+    }
+  }, [listaTarefas, storage]);
 
   return (
     <main className="container tasks-area">
@@ -72,10 +77,6 @@ export const ListaDeTarefas = () => {
 
       <TarefasTable
         lista={lista}
-        /* handleTarefaById={handleTarefaById}
-        handleUpdateById={handleUpdateById}
-        handleDeleteById={handleDeleteById}
-        handleCreate={handleCreate} */
         setTargetTarefa={setTargetTarefa}
         openModal={openModal}
       />
