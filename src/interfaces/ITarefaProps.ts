@@ -7,13 +7,7 @@ export interface ITarefaProps {
   description: string;
   status: boolean;
   setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
-  openModal: (
-    id: string,
-    titulo: string,
-    description: string,
-    status: boolean,
-    modal: string
-  ) => void;
+  setModalOption: React.Dispatch<React.SetStateAction<string>>;
   handleClose: () => void;
   handleOpen: () => void;
 }

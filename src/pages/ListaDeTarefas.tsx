@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IListaTarefasData,
   TarefasServices,
@@ -7,16 +7,15 @@ import { ModalOptions } from "../components";
 
 import { Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
-import { useHandleTarefas } from "../hooks/useHandleTarefas";
-import { EnvironmentViriables } from "../../environment/EnviromentVariables";
-import { NewEditModal } from "../components/newModal/NewEditModal";
+
+import { NewModalControl } from "../components/newModal";
 
 export const ListaDeTarefas = () => {
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [controlModal, setControlModal] = useState(false);
   const [modalOption, setModalOption] = useState("");
-  const [idTarefa, setIdTarefa] = useState("");
+  /* const [idTarefa, setIdTarefa] = useState(""); */
   const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
     id: "",
     titulo: "",
@@ -33,7 +32,7 @@ export const ListaDeTarefas = () => {
     }
   }, [isOpen]);
 
-  const openModal = (
+  /* const openModal = (
     id: string,
     title: string,
     description: string,
@@ -55,17 +54,17 @@ export const ListaDeTarefas = () => {
       setModalOption(opt);
     }
   };
-
+ */
   return (
     <main className="container tasks-area">
-      {controlModal ? (
+      {/* {controlModal ? (
         <ModalOptions
           option={modalOption}
           idTarefa={idTarefa}
           closeModal={() => setControlModal(false)}
           targetTarefa={targetTarefa}
         />
-      ) : null}
+      ) : null} */}
 
       <Typography
         marginTop={5}
@@ -75,15 +74,20 @@ export const ListaDeTarefas = () => {
       >
         Lista de Tarefas
       </Typography>
-      <NewEditModal
-        isOpen={isOpen}
-        handleClose={handleClose}
-        targetTarefa={targetTarefa}
-      />
+
+      {isOpen && (
+        <NewModalControl
+          targetTarefa={targetTarefa}
+          isOpen={isOpen}
+          option={modalOption}
+          handleClose={handleClose}
+        />
+      )}
+
       <TarefasTable
         lista={lista}
         setTargetTarefa={setTargetTarefa}
-        openModal={openModal}
+        setModalOption={setModalOption}
         handleClose={handleClose}
         handleOpen={handleOpen}
       />

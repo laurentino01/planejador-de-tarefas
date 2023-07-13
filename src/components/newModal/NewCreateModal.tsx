@@ -10,7 +10,10 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
-import { TarefasServices } from "../../services/tarefasServices/TarefasServices";
+import {
+  IListaTarefasData,
+  TarefasServices,
+} from "../../services/tarefasServices/TarefasServices";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -34,13 +37,15 @@ interface IFormProps {
   description: string;
 }
 
+export interface INewCreateModalProps {
+  isOpen: boolean;
+  handleClose: () => void;
+}
+
 export const NewCreateModal = ({
   isOpen,
   handleClose,
-}: {
-  isOpen: boolean;
-  handleClose: () => void;
-}) => {
+}: INewCreateModalProps) => {
   const {
     register,
     handleSubmit,

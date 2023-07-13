@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Modal, SxProps, Typography, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useHandleTarefas } from "../../hooks/useHandleTarefas";
+import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -20,16 +21,17 @@ const style: SxProps = {
   p: 4,
 };
 
+interface INewViewModalProps {
+  isOpen: boolean;
+  handleClose: () => void;
+  targetTarefa: IListaTarefasData;
+}
+
 export const NewViewModal = ({
   isOpen,
   handleClose,
-  id,
-}: {
-  isOpen: boolean;
-  handleClose: () => void;
-  id: string;
-}) => {
-  const tarefaById = useHandleTarefas().handleTarefaById(id);
+  targetTarefa,
+}: INewViewModalProps) => {
   const theme = useTheme();
 
   return (
@@ -50,7 +52,7 @@ export const NewViewModal = ({
           onClick={handleClose}
         ></CloseIcon>
         <Typography component={"h2"} variant="h4">
-          {tarefaById?.titulo}
+          {targetTarefa.titulo}
         </Typography>
 
         <Box
@@ -62,7 +64,7 @@ export const NewViewModal = ({
           }}
         >
           <Box>
-            <Typography> {tarefaById?.description} </Typography>
+            <Typography> {targetTarefa.description} </Typography>
           </Box>
           <Box
             sx={{
@@ -72,11 +74,11 @@ export const NewViewModal = ({
             <Typography
               sx={{
                 color: `${
-                  tarefaById?.status ? theme.palette.primary.main : "red"
+                  targetTarefa.status ? theme.palette.primary.main : "red"
                 }`,
               }}
             >
-              {tarefaById?.status ? "Concluída!" : "Por fazer!"}
+              {targetTarefa.status ? "Concluída!" : "Por fazer!"}
             </Typography>
           </Box>
         </Box>

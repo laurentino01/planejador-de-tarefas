@@ -59,7 +59,7 @@ export const NewEditModal = ({
     defaultValues: { titulo: "", description: "" },
   });
 
-  const { handleUpdateById, lista } = useHandleTarefas();
+  const { handleUpdateById } = useHandleTarefas();
 
   const onSubmit = useCallback(
     (data: IFormEditProps) => {

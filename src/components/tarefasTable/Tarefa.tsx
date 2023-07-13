@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { ITarefaProps } from "../../interfaces/ITarefaProps";
+import React, { useState } from "react";
 import { Edit, Delete } from "@mui/icons-material";
 import {
-  List,
-  ListItem,
   TableCell,
   TableRow,
   Typography,
@@ -13,8 +10,16 @@ import {
 } from "@mui/material";
 import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
-import { NewViewModal } from "../newModal/NewViewModal";
-import { NewEditModal } from "../newModal/NewEditModal";
+interface ITarefaProps {
+  id: string;
+  titulo: string;
+  description: string;
+  status: boolean;
+  setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
+  setModalOption: React.Dispatch<React.SetStateAction<string>>;
+  handleClose: () => void;
+  handleOpen: () => void;
+}
 
 export const Tarefa = ({
   id,
@@ -22,15 +27,15 @@ export const Tarefa = ({
   description,
   status,
   setTargetTarefa,
-  openModal,
-  handleClose,
+  setModalOption,
   handleOpen,
 }: ITarefaProps) => {
   const [check, setCheck] = useState(status);
 
   const handleUpdateById = useHandleTarefas().handleUpdateById;
 
-  const handleModal = () => {
+  const handleModal = (option: string) => {
+    setModalOption(option);
     handleOpen();
     setTargetTarefa({
       id: id,
@@ -42,13 +47,11 @@ export const Tarefa = ({
 
   return (
     <>
-      {/* <NewViewModal isOpen={isOpen} handleClose={handleClose} id={id} /> */}
-
       <TableRow>
         <TableCell>
           <Typography
             sx={{ cursor: "pointer" }}
-            /* onClick={handleOpen} */
+            onClick={() => handleModal("view")}
             component={"h6"}
             variant="h6"
           >
@@ -70,16 +73,16 @@ export const Tarefa = ({
         <TableCell padding="none">
           <Box component={Box} display={"flex"}>
             <IconButton
-              onClick={() =>
-                openModal(id, titulo, description, status, "exclude")
-              }
+              /* onClick={() =>
+                setModalOption(id, titulo, description, status, "exclude")
+              } */
               sx={{ cursor: "pointer" }}
               component={"li"}
             >
               <Delete></Delete>
             </IconButton>
             <IconButton
-              onClick={handleModal}
+              onClick={() => handleModal("edit")}
               sx={{ cursor: "pointer" }}
               component={"li"}
             >

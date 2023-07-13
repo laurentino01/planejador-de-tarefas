@@ -39,13 +39,7 @@ interface TablePaginationActionsProps {
 interface ITarefasTableProps {
   lista: IListaTarefasData[];
   setTargetTarefa: React.Dispatch<React.SetStateAction<IListaTarefasData>>;
-  openModal: (
-    id: string,
-    titulo: string,
-    description: string,
-    status: boolean,
-    opt: string
-  ) => void;
+  setModalOption: React.Dispatch<React.SetStateAction<string>>;
   handleOpen: () => void;
   handleClose: () => void;
 }
@@ -123,7 +117,7 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
 export const TarefasTable = ({
   lista,
   setTargetTarefa,
-  openModal,
+  setModalOption,
   handleClose,
   handleOpen,
 }: ITarefasTableProps) => {
@@ -181,7 +175,7 @@ export const TarefasTable = ({
                   description={tarefa.description}
                   status={tarefa.status}
                   setTargetTarefa={setTargetTarefa}
-                  openModal={openModal}
+                  setModalOption={setModalOption}
                   handleClose={handleClose}
                   handleOpen={handleOpen}
                 />
