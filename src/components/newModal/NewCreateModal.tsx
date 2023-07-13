@@ -1,36 +1,10 @@
-import React, { useCallback, useState } from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  SxProps,
-  TextField,
-  Typography,
-} from "@mui/material";
+import React, { useCallback } from "react";
+import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
-import {
-  IListaTarefasData,
-  TarefasServices,
-} from "../../services/tarefasServices/TarefasServices";
-
-const style: SxProps = {
-  position: "absolute" as "absolute",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  gap: "20px",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  maxWidth: 600,
-  width: " 90%",
-  bgcolor: "background.paper",
-  borderRadius: "15px",
-  boxShadow: 24,
-  p: 4,
-};
+import { TarefasServices } from "../../services/tarefasServices/TarefasServices";
+import { styleModal } from "./modal.style";
 
 interface IFormProps {
   titulo: string;
@@ -70,7 +44,7 @@ export const NewCreateModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={styleModal}>
           <CloseIcon
             sx={{ alignSelf: "end", fontSize: "32px", cursor: "pointer" }}
             onClick={handleClose}

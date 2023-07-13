@@ -1,22 +1,21 @@
 import React from "react";
-import { Box, Modal, SxProps, Typography, useTheme } from "@mui/material";
+import { Box, Modal, Typography, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 import { styleModal } from "./modal.style";
 
-interface INewViewModalProps {
+interface INewDeleteModalProps {
   isOpen: boolean;
   handleClose: () => void;
   targetTarefa: IListaTarefasData;
 }
 
-export const NewViewModal = ({
+export const NewDeleteModal = ({
   isOpen,
   handleClose,
   targetTarefa,
-}: INewViewModalProps) => {
+}: INewDeleteModalProps) => {
   const theme = useTheme();
-
   return (
     <Modal
       open={isOpen}
