@@ -41,7 +41,7 @@ export const Tarefa = ({
       id: id,
       titulo: titulo,
       description: description,
-      status: status,
+      status: check,
     });
   };
 
