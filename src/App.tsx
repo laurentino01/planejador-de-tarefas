@@ -13,6 +13,7 @@ import {
 function App() {
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [modalOption, setModalOption] = useState("");
 
   const handleClose = () => setIsOpen(false);
   const handleOpen = () => setIsOpen(true);
@@ -32,12 +33,16 @@ function App() {
             handleOpen={handleOpen}
             handleClose={handleClose}
             isOpen={isOpen}
+            modalOption={modalOption}
+            setModalOption={setModalOption}
           />
           <AppRoutes
             handleOpen={handleOpen}
             handleClose={handleClose}
             isOpen={isOpen}
             lista={lista}
+            modalOption={modalOption}
+            setModalOption={setModalOption}
           />
         </BrowserRouter>
       </AppThemeProvider>

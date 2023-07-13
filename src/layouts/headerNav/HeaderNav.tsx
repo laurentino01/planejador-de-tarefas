@@ -19,7 +19,13 @@ import { switchStyle } from "./headerNav.style";
 import { NewModalControl } from "../../components/newModal/index";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 
-export const HeaderNav = ({ isOpen, handleClose, handleOpen }) => {
+export const HeaderNav = ({
+  isOpen,
+  handleClose,
+  handleOpen,
+  modalOption,
+  setModalOption,
+}) => {
   const { toggleTheme } = useAppThemeContext();
   const theme = useTheme();
   const [check, setCheck] = useState(
@@ -37,13 +43,18 @@ export const HeaderNav = ({ isOpen, handleClose, handleOpen }) => {
 
   const mediaDownMD = useMediaQuery(theme.breakpoints.down("md"));
 
+  const handleOpenModal = () => {
+    setModalOption("create");
+    handleOpen();
+  };
+
   return (
     <>
       {isOpen && (
         <NewModalControl
           handleClose={handleClose}
           isOpen={isOpen}
-          option="create"
+          option={modalOption}
           targetTarefa={{} as IListaTarefasData}
         />
         /* <NewCreateModal isOpen={isOpen} handleClose={handleClose} /> */
@@ -143,7 +154,7 @@ export const HeaderNav = ({ isOpen, handleClose, handleOpen }) => {
 
           {!mediaDownMD && (
             <Button
-              onClick={handleOpen}
+              onClick={handleOpenModal}
               sx={{
                 color: "white",
                 marginRight: "20px",

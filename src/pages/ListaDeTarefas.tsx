@@ -10,9 +10,15 @@ import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 
 import { NewModalControl } from "../components/newModal";
 
-export const ListaDeTarefas = ({ lista, isOpen, handleClose, handleOpen }) => {
-  const [modalOption, setModalOption] = useState("");
-  /* const [idTarefa, setIdTarefa] = useState(""); */
+export const ListaDeTarefas = ({
+  lista,
+  isOpen,
+  handleClose,
+  handleOpen,
+  modalOption,
+  setModalOption,
+}) => {
+  /*  const [idTarefa, setIdTarefa] = useState(""); */
   const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
     id: "",
     titulo: "",

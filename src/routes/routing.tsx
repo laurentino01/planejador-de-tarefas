@@ -2,7 +2,14 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
 import { ListaDeTarefas } from "../pages";
 
-export const AppRoutes = ({ lista, isOpen, handleClose, handleOpen }) => {
+export const AppRoutes = ({
+  lista,
+  isOpen,
+  handleClose,
+  handleOpen,
+  modalOption,
+  setModalOption,
+}) => {
   return (
     <Routes>
       <Route
@@ -13,6 +20,8 @@ export const AppRoutes = ({ lista, isOpen, handleClose, handleOpen }) => {
             handleClose={handleClose}
             isOpen={isOpen}
             lista={lista}
+            modalOption={modalOption}
+            setModalOption={setModalOption}
           />
         }
       />
