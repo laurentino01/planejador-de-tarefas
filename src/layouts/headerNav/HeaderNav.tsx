@@ -16,17 +16,18 @@ import { AppDrawer } from "../AppDrawer";
 import { SunIcon } from "../../components/icons/SunIcon";
 import { MoonIcon } from "../../components/icons/MoonIcon";
 import { switchStyle } from "./headerNav.style";
-import { NewCreateModal } from "../../components/newModal/NewCreateModal";
+import { NewModalControl } from "../../components/newModal/index";
+import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 
-export const HeaderNav = () => {
+export const HeaderNav = ({ isOpen, handleClose, handleOpen }) => {
   const { toggleTheme } = useAppThemeContext();
   const theme = useTheme();
   const [check, setCheck] = useState(
     theme.palette.mode === "light" ? true : false
   );
-  const [isOpen, setIsOpen] = useState(false);
+  /*   const [isOpen, setIsOpen] = useState(false);
   const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  const handleClose = () => setIsOpen(false); */
 
   const handleToggle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.checked);
@@ -38,6 +39,15 @@ export const HeaderNav = () => {
 
   return (
     <>
+      {isOpen && (
+        <NewModalControl
+          handleClose={handleClose}
+          isOpen={isOpen}
+          option="create"
+          targetTarefa={{} as IListaTarefasData}
+        />
+        /* <NewCreateModal isOpen={isOpen} handleClose={handleClose} /> */
+      )}
       {mediaDownMD && (
         <Box
           sx={{
@@ -146,9 +156,6 @@ export const HeaderNav = () => {
             >
               Adicionar Nova Tarefa
             </Button>
-          )}
-          {isOpen && (
-            <NewCreateModal isOpen={isOpen} handleClose={handleClose} />
           )}
         </Box>
       </Box>

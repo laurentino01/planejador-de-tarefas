@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   IListaTarefasData,
   TarefasServices,
@@ -10,10 +10,7 @@ import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 
 import { NewModalControl } from "../components/newModal";
 
-export const ListaDeTarefas = () => {
-  const [lista, setLista] = useState<IListaTarefasData[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [controlModal, setControlModal] = useState(false);
+export const ListaDeTarefas = ({ lista, isOpen, handleClose, handleOpen }) => {
   const [modalOption, setModalOption] = useState("");
   /* const [idTarefa, setIdTarefa] = useState(""); */
   const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
@@ -22,15 +19,6 @@ export const ListaDeTarefas = () => {
     description: "",
     status: false,
   });
-  const handleClose = () => setIsOpen(false);
-  const handleOpen = () => setIsOpen(true);
-
-  useEffect(() => {
-    const listaTarefas = TarefasServices.getAll()?.tarefas;
-    if (listaTarefas) {
-      setLista(listaTarefas);
-    }
-  }, [isOpen]);
 
   /* const openModal = (
     id: string,
@@ -57,15 +45,6 @@ export const ListaDeTarefas = () => {
  */
   return (
     <main className="container tasks-area">
-      {/* {controlModal ? (
-        <ModalOptions
-          option={modalOption}
-          idTarefa={idTarefa}
-          closeModal={() => setControlModal(false)}
-          targetTarefa={targetTarefa}
-        />
-      ) : null} */}
-
       <Typography
         marginTop={5}
         textAlign={"center"}

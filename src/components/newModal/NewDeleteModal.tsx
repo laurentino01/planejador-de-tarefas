@@ -24,7 +24,6 @@ export const NewDeleteModal = ({
     negative: "Você ainda não completou essa tarefa, vai desistir?",
     positive: "Está tarefa está concluída, parabéns! Quer realmente excluir? ",
   });
-  const { handleDeleteById } = useHandleTarefas();
 
   const handleDelete = (id: string) => {
     TarefasServices.deleteById(id);
