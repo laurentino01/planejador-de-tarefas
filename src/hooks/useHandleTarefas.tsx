@@ -1,22 +1,7 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
-import {
-  IListaTarefasData,
-  TarefasServices,
-} from "../services/tarefasServices/TarefasServices";
-import { EnvironmentViriables } from "../../environment/EnviromentVariables";
+import { useCallback } from "react";
+import { TarefasServices } from "../services/tarefasServices/TarefasServices";
 
 export const useHandleTarefas = () => {
-  let storage: Storage = localStorage[EnvironmentViriables.LIST_NAME];
-
-  const [lista, setLista] = useState<IListaTarefasData[]>([]);
-
-  useEffect(() => {
-    const listaTarefas = TarefasServices.getAll()?.tarefas;
-    if (listaTarefas) {
-      setLista(listaTarefas);
-    }
-  }, [storage]);
-
   const handleTarefaById = useCallback((id: string) => {
     const tarefa = TarefasServices.getById(id);
     if (tarefa) {
@@ -28,7 +13,7 @@ export const useHandleTarefas = () => {
     (id: string, title: string, description: string, status: boolean) => {
       TarefasServices.updateById(id, title, description, status);
     },
-    [storage]
+    []
   );
 
   const handleDeleteById = useCallback((id: string) => {
@@ -40,7 +25,6 @@ export const useHandleTarefas = () => {
   }, []);
 
   return {
-    lista,
     handleTarefaById,
     handleUpdateById,
     handleDeleteById,

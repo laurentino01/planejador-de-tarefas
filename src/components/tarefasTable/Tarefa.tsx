@@ -21,25 +21,34 @@ export const Tarefa = ({
   titulo,
   description,
   status,
+  setTargetTarefa,
   openModal,
+  handleClose,
+  handleOpen,
 }: ITarefaProps) => {
   const [check, setCheck] = useState(status);
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleUpdateById = useHandleTarefas().handleUpdateById;
 
-  const handleClose = () => setIsOpen(false);
-  const handleOpen = () => setIsOpen(true);
+  const handleModal = () => {
+    handleOpen();
+    setTargetTarefa({
+      id: id,
+      titulo: titulo,
+      description: description,
+      status: status,
+    });
+  };
 
   return (
     <>
       {/* <NewViewModal isOpen={isOpen} handleClose={handleClose} id={id} /> */}
-      <NewEditModal isOpen={isOpen} handleClose={handleClose} id={id} />
+
       <TableRow>
         <TableCell>
           <Typography
             sx={{ cursor: "pointer" }}
-            onClick={handleOpen}
+            /* onClick={handleOpen} */
             component={"h6"}
             variant="h6"
           >
@@ -70,7 +79,7 @@ export const Tarefa = ({
               <Delete></Delete>
             </IconButton>
             <IconButton
-              onClick={handleOpen}
+              onClick={handleModal}
               sx={{ cursor: "pointer" }}
               component={"li"}
             >

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import {
   Box,
   Button,
@@ -6,12 +6,15 @@ import {
   SxProps,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
 import { useHandleTarefas } from "../../hooks/useHandleTarefas";
+import {
+  IListaTarefasData,
+  TarefasServices,
+} from "../../services/tarefasServices/TarefasServices";
 
 const style: SxProps = {
   position: "absolute" as "absolute",
@@ -37,15 +40,17 @@ interface IFormEditProps {
   status: string;
 }
 
+interface INewEditModalProps {
+  isOpen: boolean;
+  handleClose: () => void;
+  targetTarefa: IListaTarefasData;
+}
+
 export const NewEditModal = ({
   isOpen,
   handleClose,
-  id,
-}: {
-  isOpen: boolean;
-  handleClose: () => void;
-  id: string;
-}) => {
+  targetTarefa,
+}: INewEditModalProps) => {
   const {
     register,
     handleSubmit,
@@ -53,22 +58,21 @@ export const NewEditModal = ({
   } = useForm<IFormEditProps>({
     defaultValues: { titulo: "", description: "" },
   });
-  const tarefaById = useHandleTarefas().handleTarefaById(id);
-  const handleUpdateById = useHandleTarefas().handleUpdateById;
+
+  const { handleUpdateById, lista } = useHandleTarefas();
 
   const onSubmit = useCallback(
     (data: IFormEditProps) => {
-      if (tarefaById) {
-        const id = tarefaById?.id;
-        const titulo = data.titulo;
-        const description = data.description;
-        const status = tarefaById?.status;
-        handleUpdateById(id, titulo, description, status);
-      }
+      handleUpdateById(
+        targetTarefa.id,
+        data.titulo,
+        data.description,
+        targetTarefa.status
+      );
 
       handleClose();
     },
-    [handleClose, tarefaById]
+    [handleClose]
   );
 
   return (
@@ -102,7 +106,7 @@ export const NewEditModal = ({
               <TextField
                 {...register("titulo", { required: true })}
                 id="outlined-basic"
-                label={`${tarefaById?.titulo}`}
+                label={`${targetTarefa.titulo}`}
                 placeholder="Digite um novo título. "
                 required
               />
@@ -114,7 +118,7 @@ export const NewEditModal = ({
                 label="Nova Descrição"
                 multiline
                 rows={4}
-                placeholder={`${tarefaById?.description}`}
+                placeholder={`${targetTarefa.description}`}
                 required
               />
             </Box>

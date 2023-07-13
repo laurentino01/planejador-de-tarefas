@@ -9,11 +9,11 @@ import { Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
 import { useHandleTarefas } from "../hooks/useHandleTarefas";
 import { EnvironmentViriables } from "../../environment/EnviromentVariables";
+import { NewEditModal } from "../components/newModal/NewEditModal";
 
 export const ListaDeTarefas = () => {
-  let storage: Storage = localStorage[EnvironmentViriables.LIST_NAME];
-
   const [lista, setLista] = useState<IListaTarefasData[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [controlModal, setControlModal] = useState(false);
   const [modalOption, setModalOption] = useState("");
   const [idTarefa, setIdTarefa] = useState("");
@@ -23,8 +23,15 @@ export const ListaDeTarefas = () => {
     description: "",
     status: false,
   });
+  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => setIsOpen(true);
 
-  const listaTarefas = useHandleTarefas().lista;
+  useEffect(() => {
+    const listaTarefas = TarefasServices.getAll()?.tarefas;
+    if (listaTarefas) {
+      setLista(listaTarefas);
+    }
+  }, [isOpen]);
 
   const openModal = (
     id: string,
@@ -49,12 +56,6 @@ export const ListaDeTarefas = () => {
     }
   };
 
-  useEffect(() => {
-    if (listaTarefas) {
-      setLista(listaTarefas);
-    }
-  }, [listaTarefas, storage]);
-
   return (
     <main className="container tasks-area">
       {controlModal ? (
@@ -74,11 +75,17 @@ export const ListaDeTarefas = () => {
       >
         Lista de Tarefas
       </Typography>
-
+      <NewEditModal
+        isOpen={isOpen}
+        handleClose={handleClose}
+        targetTarefa={targetTarefa}
+      />
       <TarefasTable
         lista={lista}
         setTargetTarefa={setTargetTarefa}
         openModal={openModal}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
       />
     </main>
   );

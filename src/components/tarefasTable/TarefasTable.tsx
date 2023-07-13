@@ -46,6 +46,8 @@ interface ITarefasTableProps {
     status: boolean,
     opt: string
   ) => void;
+  handleOpen: () => void;
+  handleClose: () => void;
 }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
@@ -122,6 +124,8 @@ export const TarefasTable = ({
   lista,
   setTargetTarefa,
   openModal,
+  handleClose,
+  handleOpen,
 }: ITarefasTableProps) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(4);
@@ -145,15 +149,7 @@ export const TarefasTable = ({
         borderRadius: 3,
       }}
     >
-      <Table
-        aria-label="simple table"
-        /*  sx={{
-          maxWidth: 900,
-          minWidth: 425,
-          marginX: 10,
-          borderRadius: 3,
-        }} */
-      >
+      <Table aria-label="simple table">
         {lista.length === 0 ? (
           <caption>
             <Typography textAlign={"center"} variant="h6">
@@ -184,7 +180,10 @@ export const TarefasTable = ({
                   titulo={tarefa.titulo}
                   description={tarefa.description}
                   status={tarefa.status}
+                  setTargetTarefa={setTargetTarefa}
                   openModal={openModal}
+                  handleClose={handleClose}
+                  handleOpen={handleOpen}
                 />
               ))}
             </TableBody>
@@ -193,7 +192,7 @@ export const TarefasTable = ({
                 <TablePagination
                   count={lista.length}
                   onPageChange={handlePageChange}
-                  rowsPerPage={5}
+                  rowsPerPage={4}
                   page={page}
                   ActionsComponent={TablePaginationActions}
                 />
