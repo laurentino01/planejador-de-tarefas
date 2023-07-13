@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NewViewModal, NewCreateModal, NewEditModal } from "./index";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
+import { NewDeleteModal } from "./NewDeleteModal";
 
 interface INewModalControlProps {
   option: string;
@@ -13,7 +14,7 @@ interface IModalControlData {
   view: JSX.Element;
   create: JSX.Element;
   edit: JSX.Element;
-  /* delete: JSX.Element; */
+  delete: JSX.Element;
 }
 
 export const NewModalControl = ({
@@ -38,6 +39,13 @@ export const NewModalControl = ({
       />
     ),
     create: <NewCreateModal isOpen={isOpen} handleClose={handleClose} />,
+    delete: (
+      <NewDeleteModal
+        isOpen={isOpen}
+        handleClose={handleClose}
+        targetTarefa={targetTarefa}
+      />
+    ),
   });
   return modalControl[option];
 };

@@ -121,7 +121,8 @@ const deleteById = (id: string) => {
       const searchTarefa = tarefas.find((o) => o.id === id);
       if (searchTarefa) {
         const indexTarefa = tarefas.indexOf(searchTarefa);
-        if (indexTarefa) {
+        const i = indexTarefa === 0 ? "zero" : indexTarefa;
+        if (i) {
           tarefas.splice(indexTarefa, 1);
           const newData: IListaData = {
             tarefas: tarefas,

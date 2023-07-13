@@ -1,9 +1,12 @@
-import React from "react";
-import { Box, Modal, Typography, useTheme } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Modal, Typography, useTheme, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
+import {
+  IListaTarefasData,
+  TarefasServices,
+} from "../../services/tarefasServices/TarefasServices";
 import { styleModal } from "./modal.style";
-
+import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 interface INewDeleteModalProps {
   isOpen: boolean;
   handleClose: () => void;
@@ -16,6 +19,18 @@ export const NewDeleteModal = ({
   targetTarefa,
 }: INewDeleteModalProps) => {
   const theme = useTheme();
+
+  const [message, setMessage] = useState({
+    negative: "Você ainda não completou essa tarefa, vai desistir?",
+    positive: "Está tarefa está concluída, parabéns! Quer realmente excluir? ",
+  });
+  const { handleDeleteById } = useHandleTarefas();
+
+  const handleDelete = (id: string) => {
+    TarefasServices.deleteById(id);
+    handleClose();
+  };
+
   return (
     <Modal
       open={isOpen}
@@ -46,22 +61,36 @@ export const NewDeleteModal = ({
           }}
         >
           <Box>
-            <Typography> {targetTarefa.description} </Typography>
+            <Typography
+              variant="h6"
+              sx={{
+                color: `${
+                  targetTarefa.status ? theme.palette.primary.main : "red"
+                }`,
+                textAlign: "center",
+              }}
+            >
+              {` ${targetTarefa.status ? message.positive : message.negative} `}
+            </Typography>
           </Box>
           <Box
             sx={{
               marginTop: "20px",
             }}
           >
-            <Typography
-              sx={{
-                color: `${
-                  targetTarefa.status ? theme.palette.primary.main : "red"
-                }`,
-              }}
+            <Button
+              onClick={() => handleDelete(targetTarefa.id)}
+              variant={targetTarefa.status ? "contained" : "text"}
+              sx={{ marginRight: "20px" }}
             >
-              {targetTarefa.status ? "Concluída!" : "Por fazer!"}
-            </Typography>
+              Sim
+            </Button>
+            <Button
+              onClick={handleClose}
+              variant={targetTarefa.status ? "text" : "contained"}
+            >
+              Não
+            </Button>
           </Box>
         </Box>
       </Box>

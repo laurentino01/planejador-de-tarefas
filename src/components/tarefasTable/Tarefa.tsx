@@ -73,9 +73,7 @@ export const Tarefa = ({
         <TableCell padding="none">
           <Box component={Box} display={"flex"}>
             <IconButton
-              /* onClick={() =>
-                setModalOption(id, titulo, description, status, "exclude")
-              } */
+              onClick={() => handleModal("delete")}
               sx={{ cursor: "pointer" }}
               component={"li"}
             >
