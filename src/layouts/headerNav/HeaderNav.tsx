@@ -142,7 +142,7 @@ export const HeaderNav = ({
 
           {mediaDownMD && (
             <AddCircleIcon
-              onClick={handleOpen}
+              onClick={handleOpenModal}
               sx={{
                 fontSize: 40,
                 color: "white",

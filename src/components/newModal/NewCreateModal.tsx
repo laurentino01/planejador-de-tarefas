@@ -125,7 +125,7 @@ export const NewCreateModal = ({
                 placeholder="Digite uma descrição."
                 required
               />
-              {errors.titulo && (
+              {errors.description && (
                 <Typography variant="caption" sx={{ color: "red" }}>
                   {" "}
                   O máximo de caracteres é 100
