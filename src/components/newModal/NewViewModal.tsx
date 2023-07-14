@@ -34,36 +34,39 @@ export const NewViewModal = ({
           }}
           onClick={handleClose}
         ></CloseIcon>
-        <Typography component={"h2"} variant="h4">
-          {targetTarefa.titulo}
-        </Typography>
+        <Box sx={{ display: "block", maxWidth: "100%" }}>
+          <Typography
+            sx={{ wordWrap: "break-word" }}
+            component={"h2"}
+            variant="h4"
+          >
+            {targetTarefa.titulo}
+          </Typography>
+        </Box>
 
+        <Box sx={{ display: "block", maxWidth: "100%" }}>
+          <Typography
+            sx={{ wordWrap: "break-word" }}
+            variant="body1"
+            component={"p"}
+          >
+            {targetTarefa.description}
+          </Typography>
+        </Box>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-            alignItems: "center",
+            marginTop: "20px",
           }}
         >
-          <Box>
-            <Typography> {targetTarefa.description} </Typography>
-          </Box>
-          <Box
+          <Typography
             sx={{
-              marginTop: "20px",
+              color: `${
+                targetTarefa.status ? theme.palette.primary.main : "red"
+              }`,
             }}
           >
-            <Typography
-              sx={{
-                color: `${
-                  targetTarefa.status ? theme.palette.primary.main : "red"
-                }`,
-              }}
-            >
-              {targetTarefa.status ? "Concluída!" : "Por fazer!"}
-            </Typography>
-          </Box>
+            {targetTarefa.status ? "Concluída!" : "Por fazer!"}
+          </Typography>
         </Box>
       </Box>
     </Modal>

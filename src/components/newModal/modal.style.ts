@@ -15,4 +15,5 @@ export const styleModal: SxProps = {
   borderRadius: "15px",
   boxShadow: 24,
   p: 4,
+  textAlign: "center",
 };
