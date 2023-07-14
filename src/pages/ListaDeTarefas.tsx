@@ -18,7 +18,6 @@ export const ListaDeTarefas = ({
   modalOption,
   setModalOption,
 }) => {
-  /*  const [idTarefa, setIdTarefa] = useState(""); */
   const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
     id: "",
     titulo: "",
@@ -26,29 +25,6 @@ export const ListaDeTarefas = ({
     status: false,
   });
 
-  /* const openModal = (
-    id: string,
-    title: string,
-    description: string,
-    completed: boolean,
-    opt: string
-  ) => {
-    setTargetTarefa({
-      id: id,
-      titulo: title,
-      description: description,
-      status: completed,
-    });
-
-    setControlModal(true);
-    if (opt !== "create") {
-      setModalOption(opt);
-      setIdTarefa(id);
-    } else {
-      setModalOption(opt);
-    }
-  };
- */
   return (
     <main className="container tasks-area">
       <Typography

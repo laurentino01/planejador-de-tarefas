@@ -129,15 +129,12 @@ export const TarefasTable = ({
   };
 
   return (
-    <Box
+    <TableContainer
       variant="outlined"
       component={Paper}
-      display={"flex"}
-      alignItems={"center"}
-      justifyContent={"center"}
-      marginTop={5}
       sx={{
-        maxWidth: 900,
+        marginTop: 5,
+        maxWidth: 750,
         width: "90%",
         marginX: "auto",
         borderRadius: 3,
@@ -195,6 +192,6 @@ export const TarefasTable = ({
           </>
         )}
       </Table>
-    </Box>
+    </TableContainer>
   );
 };

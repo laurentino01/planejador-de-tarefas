@@ -7,6 +7,8 @@ import {
   Checkbox,
   Box,
   IconButton,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
@@ -31,6 +33,9 @@ export const Tarefa = ({
   handleOpen,
 }: ITarefaProps) => {
   const [check, setCheck] = useState(status);
+  const theme = useTheme();
+
+  const mediaDownSM = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleUpdateById = useHandleTarefas().handleUpdateById;
 
@@ -48,9 +53,20 @@ export const Tarefa = ({
   return (
     <>
       <TableRow>
-        <TableCell>
+        <TableCell
+          sx={{
+            display: "block",
+            overflow: "hidden",
+            maxWidth: mediaDownSM ? 150 : null,
+          }}
+        >
           <Typography
-            sx={{ cursor: "pointer" }}
+            sx={{
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              cursor: "pointer",
+              textOverflow: "ellipsis",
+            }}
             onClick={() => handleModal("view")}
             component={"h6"}
             variant="h6"
