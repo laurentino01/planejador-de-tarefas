@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Box, Button, Modal, TextField, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,8 @@ export const NewCreateModal = ({
   isOpen,
   handleClose,
 }: INewCreateModalProps) => {
+  const [tituloCounter, setTituloCounter] = useState(0);
+  const [descriptionCounter, setDescriptionCounter] = useState(0);
   const {
     register,
     handleSubmit,
@@ -63,18 +65,59 @@ export const NewCreateModal = ({
               alignItems: "center",
             }}
           >
-            <Box>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: `${
+                    tituloCounter > 20 || tituloCounter < 3 ? "red" : "green"
+                  }`,
+                }}
+              >
+                {" "}
+                Caracteres: {tituloCounter}/20
+              </Typography>
               <TextField
-                {...register("titulo", { required: true })}
+                {...register("titulo", {
+                  required: true,
+                  minLength: 3,
+                  maxLength: 20,
+                  onChange: (e) => setTituloCounter(e.target.value.length),
+                })}
                 id="outlined-basic"
                 label="Título"
                 placeholder="Digite um título. "
                 required
               />
+              {errors.titulo && (
+                <Typography variant="caption" sx={{ color: "red" }}>
+                  {" "}
+                  O máximo de caracteres é 20
+                </Typography>
+              )}
             </Box>
-            <Box>
+
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  color: `${
+                    descriptionCounter > 100 || descriptionCounter < 6
+                      ? "red"
+                      : "green"
+                  }`,
+                }}
+              >
+                {" "}
+                Caracteres: {descriptionCounter}/100
+              </Typography>
               <TextField
-                {...register("description", { required: true })}
+                {...register("description", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 100,
+                  onChange: (e) => setDescriptionCounter(e.target.value.length),
+                })}
                 id="outlined-multiline-static"
                 label="Descrição"
                 multiline
@@ -82,6 +125,12 @@ export const NewCreateModal = ({
                 placeholder="Digite uma descrição."
                 required
               />
+              {errors.titulo && (
+                <Typography variant="caption" sx={{ color: "red" }}>
+                  {" "}
+                  O máximo de caracteres é 100
+                </Typography>
+              )}
             </Box>
             <Button type="submit" variant="contained" disableElevation>
               Criar Tarefa

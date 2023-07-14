@@ -47,10 +47,15 @@ export const NewDeleteModal = ({
           }}
           onClick={handleClose}
         ></CloseIcon>
-        <Typography component={"h2"} variant="h4">
-          {targetTarefa.titulo}
-        </Typography>
-
+        <Box sx={{ display: "block", maxWidth: "100%" }}>
+          <Typography
+            sx={{ wordWrap: "break-word" }}
+            component={"h2"}
+            variant="h4"
+          >
+            {targetTarefa.titulo}
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
