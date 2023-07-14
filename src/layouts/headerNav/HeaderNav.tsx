@@ -9,6 +9,8 @@ import {
   useMediaQuery,
   Button,
   Switch,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 import { useAppThemeContext } from "../../context/ThemeContext";
@@ -31,9 +33,11 @@ export const HeaderNav = ({
   const [check, setCheck] = useState(
     theme.palette.mode === "light" ? true : false
   );
-  /*   const [isOpen, setIsOpen] = useState(false);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false); */
+  const [act, setAct] = useState("");
+  const [snackOpen, setSnackOpen] = useState(false);
+  const handleSnackClose = () => setSnackOpen(false);
+  const handleSnackOpen = () => setSnackOpen(true);
+  const handleAct = (act: string) => setAct(act);
 
   const handleToggle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCheck(e.target.checked);
@@ -56,6 +60,8 @@ export const HeaderNav = ({
           isOpen={isOpen}
           option={modalOption}
           targetTarefa={{} as IListaTarefasData}
+          handleAct={handleAct}
+          handleSnackOpen={handleSnackOpen}
         />
         /* <NewCreateModal isOpen={isOpen} handleClose={handleClose} /> */
       )}
@@ -170,6 +176,19 @@ export const HeaderNav = ({
           )}
         </Box>
       </Box>
+      <Snackbar
+        autoHideDuration={6000}
+        onClose={handleSnackClose}
+        open={snackOpen}
+      >
+        <Alert
+          onClose={handleSnackClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          item {act} com sucesso!
+        </Alert>
+      </Snackbar>
     </>
   );
 };

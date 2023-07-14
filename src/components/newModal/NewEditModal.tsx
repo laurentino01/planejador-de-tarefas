@@ -17,6 +17,8 @@ interface IFormEditProps {
 interface INewEditModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  handleSnackOpen: () => void;
+  handleAct: (act: string) => void;
   targetTarefa: IListaTarefasData;
 }
 
@@ -24,6 +26,8 @@ export const NewEditModal = ({
   isOpen,
   handleClose,
   targetTarefa,
+  handleSnackOpen,
+  handleAct,
 }: INewEditModalProps) => {
   const [tituloCounter, setTituloCounter] = useState(0);
   const [descriptionCounter, setDescriptionCounter] = useState(0);
@@ -45,7 +49,8 @@ export const NewEditModal = ({
         data.description,
         targetTarefa.status
       );
-
+      handleAct("Editado");
+      handleSnackOpen();
       handleClose();
     },
     [handleClose]

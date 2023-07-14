@@ -14,11 +14,15 @@ interface IFormProps {
 export interface INewCreateModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  handleAct: (act: string) => void;
+  handleSnackOpen: () => void;
 }
 
 export const NewCreateModal = ({
   isOpen,
   handleClose,
+  handleAct,
+  handleSnackOpen,
 }: INewCreateModalProps) => {
   const [tituloCounter, setTituloCounter] = useState(0);
   const [descriptionCounter, setDescriptionCounter] = useState(0);
@@ -33,6 +37,8 @@ export const NewCreateModal = ({
       const title = data.titulo;
       const description = data.description;
       TarefasServices.create(title, description);
+      handleAct("Criado");
+      handleSnackOpen();
       handleClose();
     },
     [handleClose]

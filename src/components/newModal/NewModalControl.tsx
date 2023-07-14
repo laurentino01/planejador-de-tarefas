@@ -8,6 +8,8 @@ interface INewModalControlProps {
   targetTarefa: IListaTarefasData;
   isOpen: boolean;
   handleClose: () => void;
+  handleSnackOpen: () => void;
+  handleAct: (act: string) => void;
 }
 
 interface IModalControlData {
@@ -21,14 +23,18 @@ export const NewModalControl = ({
   option,
   targetTarefa,
   isOpen,
+  handleSnackOpen,
   handleClose,
+  handleAct,
 }: INewModalControlProps) => {
   const [modalControl, setModalControl] = useState<IModalControlData>({
     edit: (
       <NewEditModal
+        handleSnackOpen={handleSnackOpen}
         targetTarefa={targetTarefa}
         isOpen={isOpen}
         handleClose={handleClose}
+        handleAct={handleAct}
       />
     ),
     view: (
@@ -38,12 +44,21 @@ export const NewModalControl = ({
         handleClose={handleClose}
       />
     ),
-    create: <NewCreateModal isOpen={isOpen} handleClose={handleClose} />,
+    create: (
+      <NewCreateModal
+        isOpen={isOpen}
+        handleClose={handleClose}
+        handleAct={handleAct}
+        handleSnackOpen={handleSnackOpen}
+      />
+    ),
     delete: (
       <NewDeleteModal
+        handleSnackOpen={handleSnackOpen}
         isOpen={isOpen}
         handleClose={handleClose}
         targetTarefa={targetTarefa}
+        handleAct={handleAct}
       />
     ),
   });

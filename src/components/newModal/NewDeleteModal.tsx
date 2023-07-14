@@ -10,6 +10,8 @@ import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 interface INewDeleteModalProps {
   isOpen: boolean;
   handleClose: () => void;
+  handleSnackOpen: () => void;
+  handleAct: (act: string) => void;
   targetTarefa: IListaTarefasData;
 }
 
@@ -17,6 +19,8 @@ export const NewDeleteModal = ({
   isOpen,
   handleClose,
   targetTarefa,
+  handleSnackOpen,
+  handleAct,
 }: INewDeleteModalProps) => {
   const theme = useTheme();
 
@@ -27,6 +31,8 @@ export const NewDeleteModal = ({
 
   const handleDelete = (id: string) => {
     TarefasServices.deleteById(id);
+    handleAct("Excluído");
+    handleSnackOpen();
     handleClose();
   };
 
