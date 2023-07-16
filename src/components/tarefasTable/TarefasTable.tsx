@@ -181,6 +181,7 @@ export const TarefasTable = ({
             <TableFooter>
               <TableRow>
                 <TablePagination
+                  rowsPerPageOptions={[4]}
                   count={lista.length}
                   onPageChange={handlePageChange}
                   rowsPerPage={4}
