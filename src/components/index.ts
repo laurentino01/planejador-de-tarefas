@@ -1,4 +1,4 @@
 import { ModalOptions } from "./modals/ModalOptions";
-import { Tarefa } from "./Tarefa";
+export * from "./tarefasTable/Tarefa";
 
-export { ModalOptions, Tarefa };
+export { ModalOptions };

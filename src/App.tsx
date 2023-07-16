@@ -1,23 +1,52 @@
-import React, { useEffect } from "react";
-import { ListaDeTarefas } from "./pages/ListaDeTarefas";
-import "./sass/header.scss";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { AppThemeProvider } from "./context/ThemeContext";
 
-import { NavLink } from "react-router-dom";
+import { HeaderNav } from "./layouts";
+import { AppRoutes } from "./routes/routing";
+import "./sass/header.scss";
+import {
+  IListaTarefasData,
+  TarefasServices,
+} from "./services/tarefasServices/TarefasServices";
 
 function App() {
-  useEffect(() => {}, []);
+  const [lista, setLista] = useState<IListaTarefasData[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [modalOption, setModalOption] = useState("");
+
+  const handleClose = () => setIsOpen(false);
+  const handleOpen = () => setIsOpen(true);
+
+  useEffect(() => {
+    const listaTarefas = TarefasServices.getAll()?.tarefas;
+    if (listaTarefas) {
+      setLista(listaTarefas);
+    }
+  }, [isOpen]);
 
   return (
-    <main className="App ">
-      <header className="container header ">
-        <h6>Organização</h6>
-        <nav>
-          <NavLink to={"/"}>Tarefas</NavLink>
-        </nav>
-      </header>
-
-      <ListaDeTarefas />
-    </main>
+    <>
+      <AppThemeProvider>
+        <BrowserRouter>
+          <HeaderNav
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            isOpen={isOpen}
+            modalOption={modalOption}
+            setModalOption={setModalOption}
+          />
+          <AppRoutes
+            handleOpen={handleOpen}
+            handleClose={handleClose}
+            isOpen={isOpen}
+            lista={lista}
+            modalOption={modalOption}
+            setModalOption={setModalOption}
+          />
+        </BrowserRouter>
+      </AppThemeProvider>
+    </>
   );
 }
 

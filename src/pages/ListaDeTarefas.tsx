@@ -1,111 +1,78 @@
-import React, { useEffect, useState } from "react";
-import { TarefasServices } from "../services/tarefasServices/TarefasServices";
-import { Tarefa, ModalOptions } from "../components";
-import { Add } from "@mui/icons-material";
-import { ITarefa } from "../interfaces/ITarefa";
-import "../sass/tasks-area.scss";
+import React, { useState } from "react";
+import {
+  IListaTarefasData,
+  TarefasServices,
+} from "../services/tarefasServices/TarefasServices";
+import { ModalOptions } from "../components";
 
-export const ListaDeTarefas = () => {
-  const [lista, setLista] = useState<Array<any>>([]);
-  const [controlModal, setControlModal] = useState(false);
-  const [modalOption, setModalOption] = useState("");
-  const [idTarefa, setIdTarefa] = useState(0);
-  const [targetTarefa, setTargetTarefa] = useState<ITarefa>({
-    id: 0,
-    title: "",
+import { Alert, Snackbar, Typography } from "@mui/material";
+import { TarefasTable } from "../components/tarefasTable/TarefasTable";
+
+import { NewModalControl } from "../components/newModal";
+
+export const ListaDeTarefas = ({
+  lista,
+  isOpen,
+  handleClose,
+  handleOpen,
+  modalOption,
+  setModalOption,
+}) => {
+  const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
+    id: "",
+    titulo: "",
     description: "",
-    completed: false,
+    status: false,
   });
-
-  const openModal = (
-    id: number,
-    title: string,
-    description: string,
-    completed: boolean,
-    opt: string
-  ) => {
-    setTargetTarefa({
-      id: id,
-      title: title,
-      description: description,
-      completed: completed,
-    });
-
-    setControlModal(true);
-    if (opt !== "create") {
-      setModalOption(opt);
-      setIdTarefa(id);
-    } else {
-      setModalOption(opt);
-    }
-  };
-
-  useEffect(() => {
-    const results = TarefasServices.getAll();
-    if (results) setLista(results);
-  }, [targetTarefa]);
-
-  const changeStatus = (id, title, description, status: boolean) => {
-    TarefasServices.updateById(id, title, description, status);
-  };
-
-  useEffect(() => {
-    changeStatus(
-      targetTarefa.id,
-      targetTarefa.title,
-      targetTarefa.description,
-      targetTarefa.completed
-    );
-  }, [targetTarefa]);
+  const [act, setAct] = useState("");
+  const [snackOpen, setSnackOpen] = useState(false);
+  const handleSnackClose = () => setSnackOpen(false);
+  const handleSnackOpen = () => setSnackOpen(true);
+  const handleAct = (act: string) => setAct(act);
 
   return (
-    <section className="container tasks-area">
-      {controlModal ? (
-        <ModalOptions
-          option={modalOption}
-          idTarefa={idTarefa}
-          closeModal={() => setControlModal(false)}
+    <main className="container tasks-area">
+      <Typography
+        marginTop={5}
+        textAlign={"center"}
+        variant="h4"
+        component={"h1"}
+      >
+        Lista de Tarefas
+      </Typography>
+
+      {isOpen && (
+        <NewModalControl
           targetTarefa={targetTarefa}
+          isOpen={isOpen}
+          option={modalOption}
+          handleClose={handleClose}
+          handleSnackOpen={handleSnackOpen}
+          handleAct={handleAct}
         />
-      ) : null}
+      )}
 
-      <h1>Otimize seu tempo e se organize com o nosso Planejador Diário.</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Tarefa</th>
-            <th>Status</th>
-            <th>Opções</th>
-          </tr>
-        </thead>
+      <TarefasTable
+        lista={lista}
+        setTargetTarefa={setTargetTarefa}
+        setModalOption={setModalOption}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
 
-        <tbody>
-          {lista.map((tarefa) => (
-            <Tarefa
-              key={tarefa.id}
-              id={tarefa.id}
-              title={tarefa.title}
-              description={tarefa.description}
-              completed={tarefa.completed}
-              openModal={openModal}
-              setTargetTarefa={setTargetTarefa}
-            />
-          ))}
-          <tr>
-            <td>Nova tarefa... </td>
-            <td> </td>
-            <td>
-              <button
-                onClick={() =>
-                  openModal(0, "string", "string", false, "create")
-                }
-              >
-                <Add></Add>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <Snackbar
+        autoHideDuration={6000}
+        onClose={handleSnackClose}
+        open={snackOpen}
+      >
+        <Alert
+          onClose={handleSnackClose}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          item {act} com sucesso!
+        </Alert>
+      </Snackbar>
+    </main>
   );
 };

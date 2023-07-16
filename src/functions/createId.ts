@@ -1,3 +1,10 @@
-export const createId = (arr: Array<object>) => {
-  return arr.length + 1;
+/* import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
+
+export const createId = (arr: IListaTarefasData[] | undefined): number | undefined => {
+  if(arr){
+    
+    return id;
+  }
+  
 };
+ */
