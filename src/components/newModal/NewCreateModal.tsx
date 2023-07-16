@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Box, Button, Modal, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
 
@@ -31,6 +38,7 @@ export const NewCreateModal = ({
     handleSubmit,
     formState: { errors },
   } = useForm<IFormProps>({ defaultValues: { titulo: "", description: "" } });
+  const theme = useTheme();
 
   const onSubmit = useCallback(
     (data: IFormProps) => {
@@ -54,7 +62,12 @@ export const NewCreateModal = ({
       >
         <Box sx={styleModal}>
           <CloseIcon
-            sx={{ alignSelf: "end", fontSize: "32px", cursor: "pointer" }}
+            sx={{
+              alignSelf: "end",
+              fontSize: "32px",
+              cursor: "pointer",
+              color: theme.palette.mode === "dark" ? "white" : "black",
+            }}
             onClick={handleClose}
           ></CloseIcon>
           <Typography component={"h2"} variant="h4">

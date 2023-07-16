@@ -49,7 +49,7 @@ export const NewDeleteModal = ({
             alignSelf: "end",
             fontSize: "32px",
             cursor: "pointer",
-            color: `${theme.palette.mode === "dark" ? "white" : "black"}`,
+            color: theme.palette.mode === "dark" ? "white" : "black",
           }}
           onClick={handleClose}
         ></CloseIcon>

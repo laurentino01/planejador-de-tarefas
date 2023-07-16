@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Modal, SxProps, Typography, useTheme } from "@mui/material";
+import { Box, Modal, Typography, useTheme } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
 import { styleModal } from "./modal.style";
@@ -30,7 +30,7 @@ export const NewViewModal = ({
             alignSelf: "end",
             fontSize: "32px",
             cursor: "pointer",
-            color: `${theme.palette.mode === "dark" ? "white" : "black"}`,
+            color: theme.palette.mode === "dark" ? "white" : "black",
           }}
           onClick={handleClose}
         ></CloseIcon>
