@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
 import IconButton from "@mui/material/IconButton";
@@ -24,7 +24,6 @@ import {
 } from "@mui/material";
 
 import { IListaTarefasData } from "../../services/tarefasServices/TarefasServices";
-import { useHandleTarefas } from "../../hooks/useHandleTarefas";
 
 interface TablePaginationActionsProps {
   count: number;

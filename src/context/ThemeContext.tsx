@@ -6,7 +6,7 @@ import React, {
   useContext,
   useEffect,
 } from "react";
-import { LightTheme } from "../themes/lightTheme";
+import { LightTheme } from "../themes/LightTheme";
 import { DarkTheme } from "../themes/DarkTheme";
 import { ThemeProvider } from "@emotion/react";
 import Box from "@mui/material/Box";

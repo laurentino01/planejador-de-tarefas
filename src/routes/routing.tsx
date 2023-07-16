@@ -1,6 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import React from "react";
 import { ListaDeTarefas } from "../pages";
+import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
+
+interface IAppRoutesProps {
+  lista: IListaTarefasData[];
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  modalOption: string;
+  setModalOption: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export const AppRoutes = ({
   lista,
@@ -9,7 +19,7 @@ export const AppRoutes = ({
   handleOpen,
   modalOption,
   setModalOption,
-}) => {
+}: IAppRoutesProps) => {
   return (
     <Routes>
       <Route
