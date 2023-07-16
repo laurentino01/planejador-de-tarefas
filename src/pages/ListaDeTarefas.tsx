@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import {
-  IListaTarefasData,
-  TarefasServices,
-} from "../services/tarefasServices/TarefasServices";
-import { ModalOptions } from "../components";
+import { IListaTarefasData } from "../services/tarefasServices/TarefasServices";
 
 import { Alert, Snackbar, Typography } from "@mui/material";
 import { TarefasTable } from "../components/tarefasTable/TarefasTable";
-
 import { NewModalControl } from "../components/newModal";
 
+interface IListaDeTarefasProps {
+  lista: IListaTarefasData[];
+  isOpen: boolean;
+  handleClose: () => void;
+  handleOpen: () => void;
+  modalOption: string;
+  setModalOption: React.Dispatch<React.SetStateAction<string>>;
+}
 export const ListaDeTarefas = ({
   lista,
   isOpen,
@@ -17,7 +20,7 @@ export const ListaDeTarefas = ({
   handleOpen,
   modalOption,
   setModalOption,
-}) => {
+}: IListaDeTarefasProps) => {
   const [targetTarefa, setTargetTarefa] = useState<IListaTarefasData>({
     id: "",
     titulo: "",

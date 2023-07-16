@@ -20,7 +20,7 @@ const getAll = (): IListaData | undefined => {
 
       return listaData;
     }
-  } catch (err) {
+  } catch (err: any) {
     new Error(err.message);
   }
 };
@@ -33,7 +33,7 @@ const getById = (id: string) => {
     if (searchTarefa !== undefined) {
       return searchTarefa;
     }
-  } catch (err) {
+  } catch (err: any) {
     new Error(err.message);
   }
 };
@@ -73,7 +73,7 @@ const create = (titulo: string, description: string) => {
         JSON.stringify(newListaData)
       );
     }
-  } catch (err) {
+  } catch (err: any) {
     new Error(err.message);
   }
 };
@@ -108,7 +108,7 @@ const updateById = (
         );
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     new Error(err.message);
   }
 };
@@ -135,7 +135,7 @@ const deleteById = (id: string) => {
         }
       }
     }
-  } catch (err) {
+  } catch (err: any) {
     new Error(err.message);
   }
 };
