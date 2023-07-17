@@ -5,7 +5,7 @@ O planejador de tarefas é um projeto feito para resolver problemas de organiza�
 https://planejador-de-tarefas.netlify.app/
 
 ## Sumário 
-- [Notas de Atualização](https://github.com/laurentino01/planejador-de-tarefas#sum%C3%A1rio)
+- [Notas de Atualização](https://github.com/laurentino01/planejador-de-tarefas#notas-de-atualiza%C3%A7%C3%A3o)
  - [Tecnologias](https://github.com/laurentino01/planejador-de-tarefas#tecnologias)
  - [Contribua](https://github.com/laurentino01/planejador-de-tarefas#contribua)
  
